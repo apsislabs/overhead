@@ -6,14 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "preexport": "next build",
-    "export": "next export",
-    "postexport": "touch out/.nojekyll",
-    "predeploy": "npm run export",
-    "deploy": "gh-pages -d out --dotfiles"
+    "export": "next export"
   },
   "dependencies": {
-    "gh-pages": "^3.0.0",
     "next": "^9.4.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
