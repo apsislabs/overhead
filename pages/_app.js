@@ -17,13 +17,8 @@ export default class MyApp extends App {
     return { pageProps };
   }
 
-  componentDidMount() {
-    this.setState({ trello: window.TrelloPowerUp.iframe() });
-  }
-
   render() {
     const { Component, pageProps, router } = this.props;
-    const { trello } = this.state;
 
     return (
       <>
@@ -31,9 +26,7 @@ export default class MyApp extends App {
           <script src="https://p.trellocdn.com/power-up.min.js"></script>
         </Head>
 
-        <TrelloContext.Provider value={trello}>
-          <Component {...pageProps} key={router.route} trello={trello} />
-        </TrelloContext.Provider>
+        <Component {...pageProps} key={router.route} />
       </>
     );
   }
