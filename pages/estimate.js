@@ -1,9 +1,13 @@
 import React from "react";
 
-var t = TrelloPowerUp.iframe();
+const EstimatePage = ({ trello }) => {
+  if (!trello) {
+    return null;
+  }
 
-const EstimatePage = () => {
-  console.log(t);
+  const t = trello.iframe();
+  console.log(t.getAll());
+
   return <div>Estimate!</div>;
 };
 

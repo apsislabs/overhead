@@ -15,8 +15,13 @@ export default class MyApp extends App {
     return { pageProps };
   }
 
+  componentDidMount() {
+    this.setState({ trello: TrelloPowerUp })
+  }
+
   render() {
     const { Component, pageProps, router } = this.props;
+    const { trello } = this.state;
 
     return (
       <>
@@ -24,7 +29,7 @@ export default class MyApp extends App {
           <script src="https://p.trellocdn.com/power-up.min.js"></script>
         </Head>
 
-        <Component {...pageProps} key={router.route} />
+        <Component {...pageProps} key={router.route} trello={trello} />
       </>
     );
   }
