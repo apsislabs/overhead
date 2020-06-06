@@ -5,6 +5,7 @@ import { withTrello } from "../src/withTrello";
 
 const EstimatePage = ({ t }) => {
   const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
   const [estimate, setEstimate] = useState("");
 
   useEffect(() => {
@@ -18,8 +19,11 @@ const EstimatePage = ({ t }) => {
     fetch();
   }, [t]);
 
-  const handleUpdate = () => {
-    t.set("card", "shared", "estimate", estimate);
+  const handleUpdate = async () => {
+    setSaving(true);
+    await t.set("card", "shared", "estimate", estimate);
+    setSaving(false);
+    t.closePopup();
   };
 
   if (loading) {
@@ -33,7 +37,7 @@ const EstimatePage = ({ t }) => {
         value={estimate}
         onChange={(e) => setEstimate(e.target.value)}
       />
-      <button onClick={() => handleUpdate()}>Save</button>
+      <button disabled={saving} onClick={() => handleUpdate()}>Save</button>
     </div>
   );
 };
