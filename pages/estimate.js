@@ -1,9 +1,10 @@
 /* global TrelloPowerUp */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { withTrello } from "../src/withTrello";
 
 const EstimatePage = ({ t }) => {
+  const rootEl = useRef(null);
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [estimate, setEstimate] = useState("");
@@ -30,14 +31,23 @@ const EstimatePage = ({ t }) => {
     return "Loading...";
   }
 
+  useEffect(() => {
+    t.sizeTo(rootEl.current);
+  }, [rootEl.current]);
+
   return (
-    <div>
-      <input
-        type="number"
-        value={estimate}
-        onChange={(e) => setEstimate(e.target.value)}
-      />
-      <button disabled={saving} onClick={() => handleUpdate()}>Save</button>
+    <div ref={rootEl}>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <input
+          type="number"
+          value={estimate}
+          style={{ marginRight: 8 }}
+          onChange={(e) => setEstimate(e.target.value)}
+        />
+        <button disabled={saving} onClick={() => handleUpdate()}>
+          Save
+        </button>
+      </div>
     </div>
   );
 };
