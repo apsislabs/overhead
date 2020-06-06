@@ -26,6 +26,10 @@ export default class MyApp extends App {
     return (
       <>
         <Head>
+          <link
+            rel="stylesheet"
+            href="https://p.trellocdn.com/power-up.min.css"
+          />
           <script src="https://p.trellocdn.com/power-up.min.js"></script>
         </Head>
 
