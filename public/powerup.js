@@ -1,8 +1,4 @@
-console.log(TrelloPowerUp);
-console.log("Hello from Powerup");
-
-TrelloPowerUp.initialize;
-({
+TrelloPowerUp.initialize({
   "card-buttons": (t, options) => {
     return [
       {
