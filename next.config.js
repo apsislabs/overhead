@@ -1,5 +1,3 @@
-const isProd = process.env.NODE_ENV === "production";
-
 module.exports = {
-  assetPrefix: isProd ? "https://apsislabs.github.io/overhead/" : "",
+  assetPrefix: process.env.NEXT_PUBLIC_ASSET_PREFIX,
 };

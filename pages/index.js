@@ -6,7 +6,7 @@ class HomePage extends React.Component {
     return (
       <>
         <Head>
-          <script src="/powerup.js"></script>
+          <script src={`${process.env.NEXT_PUBLIC_ASSET_PREFIX}/powerup.js`}></script>
         </Head>
         <div>Welcome to Tomato!</div>
       </>

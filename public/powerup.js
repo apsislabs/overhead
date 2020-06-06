@@ -1,4 +1,5 @@
 console.log(TrelloPowerUp);
+console.log("Hello from Powerup");
 
 TrelloPowerUp.initialize;
 ({

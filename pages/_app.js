@@ -1,4 +1,4 @@
-import App, { Container } from "next/app";
+import App from "next/app";
 import Head from "next/head";
 import React from "react";
 
@@ -31,11 +31,9 @@ export default class MyApp extends App {
           <script src="https://p.trellocdn.com/power-up.min.js"></script>
         </Head>
 
-        <Container>
-          <TrelloContext.Provider value={trello}>
-            <Component {...pageProps} key={router.route} trello={trello} />
-          </TrelloContext.Provider>
-        </Container>
+        <TrelloContext.Provider value={trello}>
+          <Component {...pageProps} key={router.route} trello={trello} />
+        </TrelloContext.Provider>
       </>
     );
   }
