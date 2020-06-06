@@ -1,6 +1,7 @@
 import React from "react";
 
 const EstimatePage = ({ trello }) => {
+  console.log(trello);
   if (!trello) {
     return null;
   }
