@@ -1,3 +1,5 @@
+/* global TrelloPowerUp */
+
 import React from "react";
 
 const EstimatePage = ({ trello }) => {
@@ -6,10 +8,17 @@ const EstimatePage = ({ trello }) => {
     return null;
   }
 
-  const t = trello.iframe();
-  console.log(t.getAll());
+  console.log(trello, trello.getAll());
 
   return <div>Estimate!</div>;
 };
+
+EstimatePage.getInitialProps = async (ctx) => {
+  if (typeof window === "undefined") {
+    return  { trello: null };
+  }
+
+  return { trello: TrelloPowerUp.iframe() };
+}
 
 export default EstimatePage;
