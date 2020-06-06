@@ -8,6 +8,7 @@
     "start": "next start",
     "preexport": "next build",
     "export": "next export",
+    "postexport": "touch out/.nojekyll",
     "predeploy": "npm run export",
     "deploy": "gh-pages -d out --dotfiles"
   },
