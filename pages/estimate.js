@@ -2,11 +2,27 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import { withTrello } from "../src/withTrello";
+import { useForm } from "react-final-form";
+
+const inputStyles = {
+  marginRight: 8,
+  marginBottom: 0,
+  width: "100%",
+};
+
+const buttonStyles = {
+  margin: 0,
+};
+
+const rowStyles = {
+  display: "flex",
+};
+
+const mustBeNumber = (value) => (isNaN(value) ? "Must be a number" : undefined);
 
 const EstimatePage = ({ t }) => {
   const rootEl = useRef(null);
   const [loading, setLoading] = useState(false);
-  const [saving, setSaving] = useState(false);
   const [estimate, setEstimate] = useState("");
 
   useEffect(() => {
@@ -24,30 +40,41 @@ const EstimatePage = ({ t }) => {
     t.sizeTo(rootEl.current);
   }, [rootEl.current]);
 
-  const handleUpdate = async () => {
-    setSaving(true);
+  const onSubmit = async (values) => {
+    const { estimate } = values;
     await t.set("card", "shared", "estimate", estimate);
-    setSaving(false);
-    t.closePopup();
   };
 
-  if (loading) {
-    return "Loading...";
-  }
+  const { form, handleSubmit, pristine, submitting } = useForm({
+    onSubmit,
+    validate,
+    initialValues: { estimate },
+  });
 
-  return (
+  const estimateField = useField("estimate", form);
+
+  return loading ? (
+    "Loading..."
+  ) : (
     <div ref={rootEl}>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <input
-          type="number"
-          value={estimate}
-          style={{ marginRight: 8 }}
-          onChange={(e) => setEstimate(e.target.value)}
-        />
-        <button disabled={saving} onClick={() => handleUpdate()}>
-          Save
-        </button>
-      </div>
+      <form onSubmit={handleSubmit}>
+        <div style={rowStyles}>
+          <input
+            type="number"
+            {...estimateField.input}
+            placeholder="Estimate"
+          />
+
+          <button
+            style={buttonStyles}
+            className="mod-primary"
+            type="submit"
+            disabled={pristine || submitting}
+          >
+            Save
+          </button>
+        </div>
+      </form>
     </div>
   );
 };
