@@ -20,6 +20,10 @@ const EstimatePage = ({ t }) => {
     fetch();
   }, [t]);
 
+  useEffect(() => {
+    t.sizeTo(rootEl.current);
+  }, [rootEl.current]);
+
   const handleUpdate = async () => {
     setSaving(true);
     await t.set("card", "shared", "estimate", estimate);
@@ -30,10 +34,6 @@ const EstimatePage = ({ t }) => {
   if (loading) {
     return "Loading...";
   }
-
-  useEffect(() => {
-    t.sizeTo(rootEl.current);
-  }, [rootEl.current]);
 
   return (
     <div ref={rootEl}>
