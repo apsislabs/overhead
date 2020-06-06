@@ -2,8 +2,6 @@ import App from "next/app";
 import Head from "next/head";
 import React from "react";
 
-export const TrelloContext = React.createContext(null);
-
 export default class MyApp extends App {
   state = { trello: null };
 
