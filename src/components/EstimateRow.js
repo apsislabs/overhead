@@ -25,7 +25,7 @@ const unknownAvatarStlyes = {
 
 export const EstimateRow = ({ name, hours, avatarUrl, ...rest }) => {
   return (
-    <div style={rowStyles}>
+    <div style={rowStyles} {...rest}>
       <div style={{ display: "flex", alignItems: "center" }}>
         {avatarUrl ? (
           <img style={avatarStyles} src={avatarUrl} />

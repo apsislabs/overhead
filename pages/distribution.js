@@ -26,7 +26,7 @@ const reducer = (draft, action) => {
       break;
 
     case "includeList":
-      draft.excludedLists = [id, ...draft.excludedLists];
+      draft.excludedLists = [action.id, ...draft.excludedLists];
       break;
 
     case "reset":
@@ -155,7 +155,7 @@ const DistributionPage = ({ t }) => {
               <input
                 checked={excludedLists.indexOf(l.id) > -1}
                 type="checkbox"
-                onChange={(e) => handleToggle(l.id)}
+                onChange={() => handleToggle(l.id)}
               />{" "}
               {l.name}
             </label>
