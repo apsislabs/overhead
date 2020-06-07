@@ -4,7 +4,9 @@
   margin: 0;
   margin-bottom: $spacer / 2;
   cursor: pointer;
-  padding: ($spacer / 2) ($spacer / 4);
+  padding: ($spacer / 2);
+  border-radius: 2px;
+  transition: background-color 0.15s ease-in-out;
 
   &:hover {
     background-color: rgba(black, 0.05);
