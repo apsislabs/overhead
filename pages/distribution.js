@@ -79,7 +79,7 @@ const unknownAvatarStlyes = {
 const EstimateRow = ({ name, hours, avatarUrl, ...rest }) => {
   return (
     <div style={rowStyles}>
-      <span>
+      <div style={{ display: "flex", alignItems: "center" }}>
         {avatarUrl ? (
           <img style={avatarStyles} src={avatarUrl} />
         ) : (
@@ -87,7 +87,7 @@ const EstimateRow = ({ name, hours, avatarUrl, ...rest }) => {
         )}
 
         <span>{name}</span>
-      </span>
+      </div>
 
       <span>{hours}</span>
     </div>
