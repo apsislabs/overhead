@@ -9,7 +9,7 @@ class HomePage extends React.Component {
           <script src="/powerup.js"></script>
         </Head>
 
-        <div>Welcome to Tomato!</div>
+        <div>Apsis Overhead: A Trello Power Up</div>
       </>
     );
   }

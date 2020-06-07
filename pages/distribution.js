@@ -7,6 +7,7 @@ import { useImmerReducer } from "use-immer";
 import { CheckboxRow } from "../src/components/CheckboxRow";
 import { EstimateRow } from "../src/components/EstimateRow";
 import { withTrello } from "../src/withTrello";
+import { Loader } from "../src/components/Loader";
 
 const INITIAL_STATE = {
   loading: false,
@@ -147,7 +148,7 @@ const DistributionPage = ({ t }) => {
   };
 
   return loading ? (
-    "Loading..."
+    <Loader />
   ) : (
     <div ref={rootEl}>
       {_.map(estimateTotals, (e, memberId) => {
@@ -175,18 +176,21 @@ const DistributionPage = ({ t }) => {
       </button>
 
       <Collapse isOpened={open}>
-        <fieldset>
-          {_.map(lists, (l) => {
-            return (
-              <CheckboxRow
-                key={l.id}
-                checked={excludedLists.indexOf(l.id) > -1}
-                onChange={() => handleToggle(l.id)}
-                label={l.name}
-              />
-            );
-          })}
-        </fieldset>
+        <div className="pop-over-section">
+          <h4>Excluded Lists</h4>
+          <fieldset>
+            {_.map(lists, (l) => {
+              return (
+                <CheckboxRow
+                  key={l.id}
+                  checked={excludedLists.indexOf(l.id) > -1}
+                  onChange={() => handleToggle(l.id)}
+                  label={l.name}
+                />
+              );
+            })}
+          </fieldset>
+        </div>
       </Collapse>
     </div>
   );

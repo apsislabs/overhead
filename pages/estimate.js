@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useField, useForm } from "react-final-form-hooks";
 import { withTrello } from "../src/withTrello";
+import { Loader } from "../src/components/Loader";
 
 const inputStyles = {
   marginRight: 8,
@@ -61,7 +62,7 @@ const EstimatePage = ({ t }) => {
   const estimateField = useField("estimate", form, mustBeNumber);
 
   return loading ? (
-    "Loading..."
+    <Loader />
   ) : (
     <div ref={rootEl}>
       <form onSubmit={handleSubmit}>
