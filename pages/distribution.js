@@ -127,7 +127,7 @@ const DistributionPage = ({ t }) => {
     excludedLists
   );
 
-  const { unassigned, teamTotals } = estimateTotals;
+  const { unassigned, ...teamTotals } = estimateTotals;
 
   // Resize when recalculating the estimates
   useEffect(() => {
