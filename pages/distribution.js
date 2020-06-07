@@ -65,14 +65,30 @@ const rowStyles = {
 const avatarStyles = {
   width: 20,
   borderRadius: 20,
-  marginRight: 8
+  marginRight: 8,
+};
+
+const unknownAvatarStlyes = {
+  width: 20,
+  height: 20,
+  borderRadius: 20,
+  marginRight: 8,
+  backgroundColor: "#ddd",
 };
 
 const EstimateRow = ({ name, hours, avatarUrl, ...rest }) => {
   return (
     <div style={rowStyles}>
-      {avatarUrl && <img style={avatarStyles} src={avatarUrl} />}
-      <span>{name}</span>
+      <span>
+        {avatarUrl ? (
+          <img style={avatarStyles} src={avatarUrl} />
+        ) : (
+          <div style={unknownAvatarStlyes} />
+        )}
+
+        <span>{name}</span>
+      </span>
+
       <span>{hours}</span>
     </div>
   );

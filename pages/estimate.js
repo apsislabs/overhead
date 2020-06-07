@@ -68,6 +68,7 @@ const EstimatePage = ({ t }) => {
         <div style={rowStyles}>
           <input
             type="number"
+            autoFocus
             style={inputStyles}
             {...estimateField.input}
             placeholder="Estimate"
