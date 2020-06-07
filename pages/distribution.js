@@ -153,14 +153,14 @@ const DistributionPage = ({ t }) => {
         const member = _.find(members, (m) => m.id === memberId);
         const name = _.get(member, "fullName", "Unassigned");
         const avatarUrl = _.get(member, "avatar", null);
-        const hours = e ? `${e} hours` : "Zilch";
+
 
         return (
           <EstimateRow
             key={memberId}
             name={name}
             avatarUrl={avatarUrl}
-            hours={hours}
+            hours={e}
           />
         );
       })}
