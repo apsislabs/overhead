@@ -2,11 +2,12 @@
 
 .label {
   margin: 0;
-  margin-bottom: $spacer / 2;
+  margin-bottom: $spacer;
 }
 
 .checkbox {
   &[type="checkbox"] {
+    vertical-align: middle;
     margin: 0;
     margin-bottom: 0;
     margin-right: $spacer / 2;
