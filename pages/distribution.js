@@ -48,11 +48,26 @@ const calculateEstimates = (cards, estimates) => {
         acc[member.id] += estimate;
       });
 
-      console.log(acc);
-
       return acc;
     },
     {}
+  );
+};
+
+const rowStyles = {
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  width: "100%",
+};
+
+const EstimateRow = ({ name, hours, avatarUrl, ...rest }) => {
+  return (
+    <div style={rowStyles}>
+      {avatarUrl && <img src={avatarUrl} />}
+      <span>{name}</span>
+      <span>{hours}</span>
+    </div>
   );
 };
 
@@ -104,7 +119,22 @@ const DistributionPage = ({ t }) => {
   console.log(cards, estimates);
   const estimateTotals = calculateEstimates(cards, estimates);
   console.log(estimateTotals);
-  return loading ? "Loading..." : <div>Distribution!</div>;
+  return loading ? (
+    "Loading..."
+  ) : (
+    <div>
+      {_.map(estimateTotals, (e, memberId) => {
+        const member = _.find(members, (m) => m.id === memberId);
+        const name = _.get(member, "fullName", "Unassigned");
+        const avatarUrl = _.get(member, "avatar", null);
+        const estimate = e ? `${e} hours` : "Zilch";
+
+        return (
+          <EstimateRow name={name} avatarUrl={avatarUrl} estimate={estimate} />
+        );
+      })}
+    </div>
+  );
 };
 
 export default withTrello(DistributionPage);
