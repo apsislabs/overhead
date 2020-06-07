@@ -51,11 +51,11 @@ const calculateDistributions = (cards, estimates, excludedLists = []) => {
       const estimate = parseFloat(_.get(estimates, card.id));
 
       if (card.members.length < 1) {
-        if (!_.has(acc, "none")) {
-          _.set(acc, "none", 0);
+        if (!_.has(acc, "unassigned")) {
+          _.set(acc, "unassigned", 0);
         }
 
-        acc["none"] += estimate;
+        acc["unassigned"] += estimate;
       }
 
       _.forEach(card.members, (member) => {
@@ -127,6 +127,8 @@ const DistributionPage = ({ t }) => {
     excludedLists
   );
 
+  const { unassigned, teamTotals } = estimateTotals;
+
   // Resize when recalculating the estimates
   useEffect(() => {
     if (rootEl.current) {
@@ -151,7 +153,7 @@ const DistributionPage = ({ t }) => {
     <Loader />
   ) : (
     <div ref={rootEl}>
-      {_.map(estimateTotals, (e, memberId) => {
+      {_.map(teamTotals, (e, memberId) => {
         const member = _.find(members, (m) => m.id === memberId);
         const name = _.get(member, "fullName", "Unassigned");
         const avatarUrl = _.get(member, "avatar", null);
@@ -167,6 +169,14 @@ const DistributionPage = ({ t }) => {
       })}
 
       <hr />
+
+      <div>
+        <strong>Unassigned:</strong> {unassigned} Hours
+      </div>
+
+      <div>
+        <strong>Total:</strong> {_.sum(Object.values(teamTotals))} Hours
+      </div>
 
       <button
         style={{ width: "100%", marginBottom: 8 }}
