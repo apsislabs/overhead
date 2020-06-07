@@ -79,9 +79,10 @@ const DistributionPage = ({ t }) => {
       try {
         dispatch({ type: "set", key: "loading", value: true });
 
-        const [memberData, lists] = await Promise.all([
+        const [memberData, lists, excludedLists] = await Promise.all([
           t.board("members"),
           t.lists("all"),
+          t.get("member", "private", "excludedLists", []),
         ]);
 
         const cards = _.flatten(_.map(lists, (l) => l.cards));
@@ -105,6 +106,7 @@ const DistributionPage = ({ t }) => {
         dispatch({ type: "set", key: "members", value: memberData.members });
         dispatch({ type: "set", key: "lists", value: lists });
         dispatch({ type: "set", key: "cards", value: cards });
+        dispatch({ type: "set", key: "excludedLists", value: excludedLists });
       } catch (err) {
         console.error(err);
       } finally {
@@ -121,11 +123,17 @@ const DistributionPage = ({ t }) => {
     excludedLists
   );
 
+  // Resize when recalculating the estimates
   useEffect(() => {
     if (rootEl.current) {
       t.sizeTo(rootEl.current);
     }
   }, [rootEl.current, estimateTotals]);
+
+  // Store any change to excluded lists
+  useEffect(() => {
+    t.set("member", "private", "excludedLists", excludedLists);
+  }, [excludedLists]);
 
   const handleToggle = (id) => {
     if (excludedLists.indexOf(id) > -1) {
