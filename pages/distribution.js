@@ -154,7 +154,6 @@ const DistributionPage = ({ t }) => {
         const name = _.get(member, "fullName", "Unassigned");
         const avatarUrl = _.get(member, "avatar", null);
 
-
         return (
           <EstimateRow
             key={memberId}
