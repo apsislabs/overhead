@@ -146,7 +146,7 @@ const DistributionPage = ({ t }) => {
     if (rootEl.current) {
       t.sizeTo(rootEl.current);
     }
-  }, [rootEl.current]);
+  }, [rootEl.current, estimateTotals]);
 
   return loading ? (
     "Loading..."
