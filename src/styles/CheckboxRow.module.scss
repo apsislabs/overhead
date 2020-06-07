@@ -2,8 +2,9 @@
 
 .label {
   margin: 0;
-  margin-bottom: $spacer;
+  margin-bottom: $spacer / 2;
   cursor: pointer;
+  padding: ($spacer / 2) ($spacer / 4);
 
   &:hover {
     background-color: rgba(black, 0.05);
