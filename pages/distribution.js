@@ -48,6 +48,8 @@ const calculateEstimates = (cards, estimates) => {
         acc[member.id] += estimate;
       });
 
+      console.log(acc);
+
       return acc;
     },
     {}
@@ -99,6 +101,7 @@ const DistributionPage = ({ t }) => {
     fetch();
   }, [t]);
 
+  console.log(cards, estimates);
   const estimateTotals = calculateEstimates(cards, estimates);
   console.log(estimateTotals);
   return loading ? "Loading..." : <div>Distribution!</div>;
