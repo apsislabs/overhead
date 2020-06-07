@@ -170,13 +170,17 @@ const DistributionPage = ({ t }) => {
 
       <hr />
 
-      <div>
-        <strong>Unassigned:</strong> {unassigned} Hours
-      </div>
+      {typeof unassigned !== "undefined" && (
+        <div>
+          <strong>Unassigned:</strong> {unassigned} Hours
+        </div>
+      )}
 
-      <div>
-        <strong>Total:</strong> {_.sum(Object.values(teamTotals))} Hours
-      </div>
+      {typeof teamTotals !== "undefined" && (
+        <div>
+          <strong>Total:</strong> {_.sum(Object.values(teamTotals))} Hours
+        </div>
+      )}
 
       <button
         style={{ width: "100%", marginBottom: 8 }}
