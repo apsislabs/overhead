@@ -1,4 +1,5 @@
 import React from "react";
+import { Badge } from "./Badge";
 
 const rowStyles = {
   display: "flex",
@@ -35,7 +36,7 @@ export const EstimateRow = ({ name, hours, avatarUrl, ...rest }) => {
         <span>{name}</span>
       </div>
 
-      <span>{hours}</span>
+      <Badge>{hours}</Badge>
     </div>
   );
 };

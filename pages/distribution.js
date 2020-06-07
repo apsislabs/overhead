@@ -1,3 +1,5 @@
+/* global TrelloPowerUp */
+
 import React, { useState, useEffect, useRef } from "react";
 import _ from "lodash";
 import { withTrello } from "../src/withTrello";
