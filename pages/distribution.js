@@ -178,7 +178,7 @@ const DistributionPage = ({ t }) => {
       <Collapse isOpened={open}>
         <div className="pop-over-section">
           <h4>Excluded Lists</h4>
-          <fieldset>
+          <fieldset style={{ marginBottom: 0 }}>
             {_.map(lists, (l) => {
               return (
                 <CheckboxRow
