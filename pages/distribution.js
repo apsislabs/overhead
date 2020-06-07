@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import _ from 'lodash';
+import _ from "lodash";
 import { withTrello } from "../src/withTrello";
 
 const DistributionPage = ({ t }) => {
@@ -7,10 +7,12 @@ const DistributionPage = ({ t }) => {
   const [members, setMembers] = useState([]);
   const [lists, setLists] = useState([]);
   const [cards, setCards] = useState([]);
-  const [estimates, setEstimate] = useState({});
+  const [estimates, setEstimates] = useState({});
 
   useEffect(() => {
     const fetch = async () => {
+      console.log("Fetching...");
+
       try {
         setLoading(true);
 
@@ -21,6 +23,20 @@ const DistributionPage = ({ t }) => {
 
         const cards = _.flatten(_.map(lists, (l) => l.cards));
 
+        const estimatePromises = _.map(
+          cards,
+          (c) => t.get(c.id, "shared", "estimate", null)
+        );
+
+        const estimateValues = await Promise.all(estimatePromises);
+
+        const estimates = _.reduce(
+          cards,
+          (e, c, i) => (e[c.id] = estimateValues[i]),
+          {}
+        );
+
+        setEstimates(estimates);
         setMembers(members);
         setLists(lists);
         setCards(cards);
@@ -34,7 +50,7 @@ const DistributionPage = ({ t }) => {
     fetch();
   }, [t]);
 
-  console.log(members, lists, cards);
+  console.log(members, lists, cards, estimates);
 
   return loading ? "Loading..." : <div>Distribution!</div>;
 };
