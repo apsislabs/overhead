@@ -1,13 +1,58 @@
 import React, { useState, useEffect } from "react";
 import _ from "lodash";
 import { withTrello } from "../src/withTrello";
+import { useImmerReducer } from "use-immer";
+
+const INITIAL_STATE = {
+  loading: false,
+  members: [],
+  lists: [],
+  cards: [],
+  estimates: []
+};
+
+const reducer = (draft, action) => {
+  switch (action.type) {
+    case "set":
+      draft[action.key] = action.value;
+      break;
+
+    case "reset":
+      return INITIAL_STATE;
+  }
+}
+
+const calculateEstimates = (cards, estimates) => {
+  return _.reduce(cards, (acc, card) => {
+    if (!_.has(estimates, card.id)) {
+      return; // continue
+    }
+
+    const estimate = parseFloat(_.get(estimates, card.id));
+
+    if (card.members.length < 1) {
+      if (!_.has(acc, "none")) {
+        _.set(acc, "none", 0);
+      }
+
+      acc["none"] += estimate;
+    }
+
+    _.forEach(card.members, (member) => {
+      if (!_.has(acc, member.id)) {
+        _.set(acc, member.id, 0);
+      }
+
+      acc[member.id] += estimate;
+    });
+
+    return acc;
+  }, {});
+}
 
 const DistributionPage = ({ t }) => {
-  const [loading, setLoading] = useState(false);
-  const [members, setMembers] = useState([]);
-  const [lists, setLists] = useState([]);
-  const [cards, setCards] = useState([]);
-  const [estimates, setEstimates] = useState({});
+  const [state, dispatch] = useImmerReducer(reducer, INITIAL_STATE);
+  const {loading, members, lists, cards, estimates} = state;
 
   useEffect(() => {
     const fetch = async () => {
@@ -38,10 +83,10 @@ const DistributionPage = ({ t }) => {
           {}
         );
 
-        setEstimates(estimates);
-        setMembers(members);
-        setLists(lists);
-        setCards(cards);
+        dispatch({ action: "set", key: "estimates", value: estimates });
+        dispatch({ action: "set", key: "members", value: members });
+        dispatch({ action: "set", key: "lists", value: lists });
+        dispatch({ action: "set", key: "cards", value: cards });
       } catch (err) {
         console.error(err);
       } finally {
@@ -52,8 +97,8 @@ const DistributionPage = ({ t }) => {
     fetch();
   }, [t]);
 
-  console.log(members, lists, cards, estimates);
-
+  const estimateTotals = calculateEstimates(cards, estimates);
+  console.log(estimateTotals);
   return loading ? "Loading..." : <div>Distribution!</div>;
 };
 
