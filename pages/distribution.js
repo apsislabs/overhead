@@ -80,7 +80,7 @@ const DistributionPage = ({ t }) => {
       try {
         dispatch({ type: "set", key: "loading", value: true });
 
-        const [members, lists] = await Promise.all([
+        const [memberData, lists] = await Promise.all([
           t.board("members"),
           t.lists("all"),
         ]);
@@ -103,7 +103,7 @@ const DistributionPage = ({ t }) => {
         );
 
         dispatch({ type: "set", key: "estimates", value: estimates });
-        dispatch({ type: "set", key: "members", value: members });
+        dispatch({ type: "set", key: "members", value: memberData.members });
         dispatch({ type: "set", key: "lists", value: lists });
         dispatch({ type: "set", key: "cards", value: cards });
       } catch (err) {
@@ -124,12 +124,10 @@ const DistributionPage = ({ t }) => {
   ) : (
     <div>
       {_.map(estimateTotals, (e, memberId) => {
-        const member = _.find(members, (m) => m.id == memberId);
+        const member = _.find(members, (m) => m.id === memberId);
         const name = _.get(member, "fullName", "Unassigned");
         const avatarUrl = _.get(member, "avatar", null);
         const estimate = e ? `${e} hours` : "Zilch";
-
-        console.log(member);
 
         return (
           <EstimateRow name={name} avatarUrl={avatarUrl} estimate={estimate} />
