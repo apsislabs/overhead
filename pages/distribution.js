@@ -23,16 +23,18 @@ const DistributionPage = ({ t }) => {
 
         const cards = _.flatten(_.map(lists, (l) => l.cards));
 
-        const estimatePromises = _.map(
-          cards,
-          (c) => t.get(c.id, "shared", "estimate", null)
+        const estimatePromises = _.map(cards, (c) =>
+          t.get(c.id, "shared", "estimate", null)
         );
 
         const estimateValues = await Promise.all(estimatePromises);
 
         const estimates = _.reduce(
           cards,
-          (e, c, i) => (e[c.id] = estimateValues[i]),
+          (e, c, i) => {
+            e[c.id] = estimateValues[i];
+            return e;
+          },
           {}
         );
 
