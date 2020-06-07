@@ -116,9 +116,9 @@ const DistributionPage = ({ t }) => {
     fetch();
   }, [t]);
 
-  console.log(cards, estimates);
   const estimateTotals = calculateEstimates(cards, estimates);
-  console.log(estimateTotals);
+  console.log(members);
+
   return loading ? (
     "Loading..."
   ) : (
