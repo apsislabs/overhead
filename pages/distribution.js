@@ -95,6 +95,7 @@ const EstimateRow = ({ name, hours, avatarUrl, ...rest }) => {
 };
 
 const DistributionPage = ({ t }) => {
+  const rootEl = useRef(null);
   const [state, dispatch] = useImmerReducer(reducer, INITIAL_STATE);
   const { loading, members, lists, cards, estimates } = state;
 
@@ -140,12 +141,17 @@ const DistributionPage = ({ t }) => {
   }, [t]);
 
   const estimateTotals = calculateEstimates(cards, estimates);
-  console.log(members);
+
+  useEffect(() => {
+    if (rootEl.current) {
+      t.sizeTo(rootEl.current);
+    }
+  }, [rootEl.current]);
 
   return loading ? (
     "Loading..."
   ) : (
-    <div>
+    <div ref={rootEl}>
       {_.map(estimateTotals, (e, memberId) => {
         const member = _.find(members, (m) => m.id === memberId);
         const name = _.get(member, "fullName", "Unassigned");
