@@ -6,6 +6,9 @@
 }
 
 .checkbox {
-  margin: 0;
-  margin-right: $spacer / 2;
+  &[type="checkbox"] {
+    margin: 0;
+    margin-bottom: 0;
+    margin-right: $spacer / 2;
+  }
 }
