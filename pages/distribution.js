@@ -128,6 +128,7 @@ const DistributionPage = ({ t }) => {
   );
 
   const { unassigned, ...teamTotals } = estimateTotals;
+  console.log(estimateTotals, unassigned, teamTotals);
 
   // Resize when recalculating the estimates
   useEffect(() => {
