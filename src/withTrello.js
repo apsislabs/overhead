@@ -1,3 +1,5 @@
+import React, { useMemo } from "react";
+
 export const withTrello = (Component) => ({ trello, ...rest }) => {
   if (!trello) {
     return "Waiting for Trello...";
