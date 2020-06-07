@@ -1,17 +1,23 @@
 /* global TrelloPowerUp */
 import React from "react";
 
-export const Badge = ({ variant = "gray", ...props }) => {
+const badgeStyles = {
+  display: "inline-block",
+  padding: "1px 3px",
+  borderRadius: 2,
+};
+
+export const Badge = ({ variant = "shades", weight = 40, ...props }) => {
   const colors = window.TrelloPowerUp.util.colors;
-  console.log(colors);
+  const backgroundColor = colors.getHexString(variant, weight);
+
   return (
     <span
       style={{
-        display: "inline-block",
-        padding: 2,
-        borderRadius: 2,
-        backgroundColor: colors.getHexString(variant),
+        ...badgeStyles,
+        backgroundColor,
       }}
+
       {...props}
     />
   );

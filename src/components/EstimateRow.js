@@ -23,8 +23,21 @@ const unknownAvatarStlyes = {
   backgroundColor: "#ddd",
 };
 
+const getBadgeColor = (hours) => {
+  if (hours > 10) {
+    return ["green", 300];
+  } else if (hours > 16) {
+    return ["yellow", 300];
+  } else if (hours > 19) {
+    return ["red", 300];
+  } else {
+    return ["shades", 40];
+  }
+};
+
 export const EstimateRow = ({ name, hours, avatarUrl, ...rest }) => {
-  const badgeVariant = hours > 18 ? "R300" : "N50";
+  const badgeVariant = getBadgeColor(hours);
+
   return (
     <div style={rowStyles} {...rest}>
       <div style={{ display: "flex", alignItems: "center" }}>
@@ -37,7 +50,9 @@ export const EstimateRow = ({ name, hours, avatarUrl, ...rest }) => {
         <span>{name}</span>
       </div>
 
-      <Badge variant={badgeVariant}>{hours}</Badge>
+      <Badge variant={badgeVariant[0]} weight={badgeVariant[1]}>
+        {hours}
+      </Badge>
     </div>
   );
 };
