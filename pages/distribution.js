@@ -124,6 +124,7 @@ const DistributionPage = ({ t }) => {
   ) : (
     <div>
       {_.map(estimateTotals, (e, memberId) => {
+        console.log(memberId, e);
         const member = _.find(members, (m) => m.id === memberId);
         const name = _.get(member, "fullName", "Unassigned");
         const avatarUrl = _.get(member, "avatar", null);
