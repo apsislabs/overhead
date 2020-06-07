@@ -1,11 +1,12 @@
 /* global TrelloPowerUp */
 
-import React, { useState, useEffect, useRef } from "react";
 import _ from "lodash";
-import { withTrello } from "../src/withTrello";
-import { useImmerReducer } from "use-immer";
-import { EstimateRow } from "../src/components/EstimateRow";
+import React, { useEffect, useRef, useState } from "react";
 import { Collapse } from "react-collapse";
+import { useImmerReducer } from "use-immer";
+import { CheckboxRow } from "../src/components/CheckboxRow";
+import { EstimateRow } from "../src/components/EstimateRow";
+import { withTrello } from "../src/withTrello";
 
 const INITIAL_STATE = {
   loading: false,
@@ -174,14 +175,12 @@ const DistributionPage = ({ t }) => {
         <fieldset>
           {_.map(lists, (l) => {
             return (
-              <label key={l.id}>
-                <input
-                  checked={excludedLists.indexOf(l.id) > -1}
-                  type="checkbox"
-                  onChange={() => handleToggle(l.id)}
-                />{" "}
-                {l.name}
-              </label>
+              <CheckboxRow
+                key={l.id}
+                checked={excludedLists.indexOf(l.id) > -1}
+                onChange={() => handleToggle(l.id)}
+                label={l.name}
+              />
             );
           })}
         </fieldset>
