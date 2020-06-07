@@ -3,6 +3,11 @@
 .label {
   margin: 0;
   margin-bottom: $spacer;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(black, 0.05);
+  }
 }
 
 .checkbox {
