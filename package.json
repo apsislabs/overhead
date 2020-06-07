@@ -17,6 +17,7 @@
     "react-collapse": "^5.0.1",
     "react-dom": "^16.13.1",
     "react-final-form-hooks": "^2.0.2",
+    "sass": "^1.26.8",
     "use-immer": "^0.4.0"
   }
 }

@@ -2,6 +2,8 @@ import App from "next/app";
 import Head from "next/head";
 import React from "react";
 
+import "../src/styles/main.scss";
+
 export default class MyApp extends App {
   state = { trello: null };
 
@@ -20,7 +22,7 @@ export default class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps, router } = this.props;
+    const { Component, pageProps } = this.props;
     const { trello } = this.state;
 
     return (
@@ -33,7 +35,7 @@ export default class MyApp extends App {
           <script src="https://p.trellocdn.com/power-up.min.js"></script>
         </Head>
 
-        <Component {...pageProps} key={router.route} trello={trello} />
+        <Component {...pageProps} trello={trello} />
       </>
     );
   }
