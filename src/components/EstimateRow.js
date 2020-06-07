@@ -24,6 +24,7 @@ const unknownAvatarStlyes = {
 };
 
 export const EstimateRow = ({ name, hours, avatarUrl, ...rest }) => {
+  const badgeVariant = hours > 18 ? "R300" : "N50";
   return (
     <div style={rowStyles} {...rest}>
       <div style={{ display: "flex", alignItems: "center" }}>
@@ -36,7 +37,7 @@ export const EstimateRow = ({ name, hours, avatarUrl, ...rest }) => {
         <span>{name}</span>
       </div>
 
-      <Badge>{hours}</Badge>
+      <Badge variant={badgeVariant}>{hours}</Badge>
     </div>
   );
 };

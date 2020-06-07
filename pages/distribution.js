@@ -165,6 +165,8 @@ const DistributionPage = ({ t }) => {
         );
       })}
 
+      <hr />
+
       <button style={{ width: "100%" }} onClick={() => setOpen(!open)}>
         Edit Lists
       </button>
