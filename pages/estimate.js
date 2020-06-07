@@ -47,11 +47,10 @@ const EstimatePage = ({ t }) => {
 
   const { form, handleSubmit, pristine, submitting } = useForm({
     onSubmit,
-    validate,
     initialValues: { estimate },
   });
 
-  const estimateField = useField("estimate", form);
+  const estimateField = useField("estimate", form, mustBeNumber);
 
   return loading ? (
     "Loading..."
