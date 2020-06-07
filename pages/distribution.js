@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import _ from "lodash";
 import { withTrello } from "../src/withTrello";
 import { useImmerReducer } from "use-immer";
