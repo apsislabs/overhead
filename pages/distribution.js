@@ -42,8 +42,7 @@ const calculateDistributions = (cards, estimates, excludedLists = []) => {
         excludedLists.indexOf(card.idList) > -1 ||
         !_.has(estimates, card.id)
       ) {
-        // Skip this card
-        return;
+        return acc;
       }
 
       const estimate = parseFloat(_.get(estimates, card.id));
