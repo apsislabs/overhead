@@ -3,7 +3,7 @@ import React from "react";
 
 const badgeStyles = {
   display: "inline-block",
-  padding: "1px 3px",
+  padding: "1px 4px",
   borderRadius: 2,
 };
 

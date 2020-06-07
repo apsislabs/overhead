@@ -25,11 +25,11 @@ const unknownAvatarStlyes = {
 
 const getBadgeColor = (hours) => {
   if (hours > 19) {
-    return ["red", 300];
+    return ["red", 500];
   } else if (hours > 16) {
-    return ["yellow", 300];
+    return ["yellow", 500];
   } else if (hours > 10) {
-    return ["green", 300];
+    return ["green", 500];
   } else {
     return ["shades", 40];
   }
