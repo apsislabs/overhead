@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import { withTrello } from "../src/withTrello";
-import { useForm } from "react-final-form";
+import { useForm, useField } from "react-final-form-hooks";
 
 const inputStyles = {
   marginRight: 8,
@@ -27,17 +27,24 @@ const EstimatePage = ({ t }) => {
 
   useEffect(() => {
     const fetch = async () => {
-      setLoading(true);
-      const storedEstimate = await t.get("card", "shared", "estimate", "");
-      setEstimate(storedEstimate);
-      setLoading(false);
+      try {
+        setLoading(true);
+        const storedEstimate = await t.get("card", "shared", "estimate", "");
+        setEstimate(storedEstimate);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetch();
   }, [t]);
 
   useEffect(() => {
-    t.sizeTo(rootEl.current);
+    if ( rootEl.current ) {
+      t.sizeTo(rootEl.current);
+    }
   }, [rootEl.current]);
 
   const onSubmit = async (values) => {
@@ -60,6 +67,7 @@ const EstimatePage = ({ t }) => {
         <div style={rowStyles}>
           <input
             type="number"
+            style={inputStyles}
             {...estimateField.input}
             placeholder="Estimate"
           />
