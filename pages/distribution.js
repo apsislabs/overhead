@@ -116,7 +116,11 @@ const DistributionPage = ({ t }) => {
     fetch();
   }, [t]);
 
-  const estimateTotals = calculateDistributions(cards, estimates);
+  const estimateTotals = calculateDistributions(
+    cards,
+    estimates,
+    excludedLists
+  );
 
   useEffect(() => {
     if (rootEl.current) {
