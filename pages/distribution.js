@@ -63,7 +63,7 @@ const DistributionPage = ({ t }) => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        dispatch({ action: "set", key: "loading", value: true });
+        dispatch({ type: "set", key: "loading", value: true });
 
         const [members, lists] = await Promise.all([
           t.board("members"),
@@ -87,14 +87,14 @@ const DistributionPage = ({ t }) => {
           {}
         );
 
-        dispatch({ action: "set", key: "estimates", value: estimates });
-        dispatch({ action: "set", key: "members", value: members });
-        dispatch({ action: "set", key: "lists", value: lists });
-        dispatch({ action: "set", key: "cards", value: cards });
+        dispatch({ type: "set", key: "estimates", value: estimates });
+        dispatch({ type: "set", key: "members", value: members });
+        dispatch({ type: "set", key: "lists", value: lists });
+        dispatch({ type: "set", key: "cards", value: cards });
       } catch (err) {
         console.error(err);
       } finally {
-        dispatch({ action: "set", key: "loading", value: false });
+        dispatch({ type: "set", key: "loading", value: false });
       }
     };
 
