@@ -59,12 +59,19 @@ const rowStyles = {
   justifyContent: "space-between",
   alignItems: "center",
   width: "100%",
+  marginBottom: 8,
+};
+
+const avatarStyles = {
+  width: 20,
+  borderRadius: 20,
+  marginRight: 8
 };
 
 const EstimateRow = ({ name, hours, avatarUrl, ...rest }) => {
   return (
     <div style={rowStyles}>
-      {avatarUrl && <img src={avatarUrl} />}
+      {avatarUrl && <img style={avatarStyles} src={avatarUrl} />}
       <span>{name}</span>
       <span>{hours}</span>
     </div>
@@ -127,11 +134,9 @@ const DistributionPage = ({ t }) => {
         const member = _.find(members, (m) => m.id === memberId);
         const name = _.get(member, "fullName", "Unassigned");
         const avatarUrl = _.get(member, "avatar", null);
-        const estimate = e ? `${e} hours` : "Zilch";
+        const hours = e ? `${e} hours` : "Zilch";
 
-        return (
-          <EstimateRow name={name} avatarUrl={avatarUrl} estimate={estimate} />
-        );
+        return <EstimateRow name={name} avatarUrl={avatarUrl} hours={hours} />;
       })}
     </div>
   );
