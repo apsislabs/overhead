@@ -8,7 +8,7 @@ const INITIAL_STATE = {
   members: [],
   lists: [],
   cards: [],
-  estimates: []
+  estimates: [],
 };
 
 const reducer = (draft, action) => {
@@ -20,46 +20,48 @@ const reducer = (draft, action) => {
     case "reset":
       return INITIAL_STATE;
   }
-}
+};
 
 const calculateEstimates = (cards, estimates) => {
-  return _.reduce(cards, (acc, card) => {
-    if (!_.has(estimates, card.id)) {
-      return; // continue
-    }
-
-    const estimate = parseFloat(_.get(estimates, card.id));
-
-    if (card.members.length < 1) {
-      if (!_.has(acc, "none")) {
-        _.set(acc, "none", 0);
+  return _.reduce(
+    cards,
+    (acc, card) => {
+      if (!_.has(estimates, card.id)) {
+        return; // continue
       }
 
-      acc["none"] += estimate;
-    }
+      const estimate = parseFloat(_.get(estimates, card.id));
 
-    _.forEach(card.members, (member) => {
-      if (!_.has(acc, member.id)) {
-        _.set(acc, member.id, 0);
+      if (card.members.length < 1) {
+        if (!_.has(acc, "none")) {
+          _.set(acc, "none", 0);
+        }
+
+        acc["none"] += estimate;
       }
 
-      acc[member.id] += estimate;
-    });
+      _.forEach(card.members, (member) => {
+        if (!_.has(acc, member.id)) {
+          _.set(acc, member.id, 0);
+        }
 
-    return acc;
-  }, {});
-}
+        acc[member.id] += estimate;
+      });
+
+      return acc;
+    },
+    {}
+  );
+};
 
 const DistributionPage = ({ t }) => {
   const [state, dispatch] = useImmerReducer(reducer, INITIAL_STATE);
-  const {loading, members, lists, cards, estimates} = state;
+  const { loading, members, lists, cards, estimates } = state;
 
   useEffect(() => {
     const fetch = async () => {
-      console.log("Fetching...");
-
       try {
-        setLoading(true);
+        dispatch({ action: "set", key: "loading", value: true });
 
         const [members, lists] = await Promise.all([
           t.board("members"),
@@ -90,7 +92,7 @@ const DistributionPage = ({ t }) => {
       } catch (err) {
         console.error(err);
       } finally {
-        setLoading(false);
+        dispatch({ action: "set", key: "loading", value: false });
       }
     };
 
