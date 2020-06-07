@@ -34,12 +34,16 @@ const reducer = (draft, action) => {
   }
 };
 
-const calculateDistributions = (cards, estimates) => {
+const calculateDistributions = (cards, estimates, excludedLists = []) => {
   return _.reduce(
     cards,
     (acc, card) => {
-      if (!_.has(estimates, card.id)) {
-        return; // continue
+      if (
+        excludedLists.indexOf(card.idList) > -1 ||
+        !_.has(estimates, card.id)
+      ) {
+        // Skip this card
+        return;
       }
 
       const estimate = parseFloat(_.get(estimates, card.id));
