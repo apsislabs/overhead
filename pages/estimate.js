@@ -1,8 +1,8 @@
 /* global TrelloPowerUp */
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useField, useForm } from "react-final-form-hooks";
 import { withTrello } from "../src/withTrello";
-import { useForm, useField } from "react-final-form-hooks";
 
 const inputStyles = {
   marginRight: 8,
@@ -42,7 +42,7 @@ const EstimatePage = ({ t }) => {
   }, [t]);
 
   useEffect(() => {
-    if ( rootEl.current ) {
+    if (rootEl.current) {
       t.sizeTo(rootEl.current);
     }
   }, [rootEl.current]);
