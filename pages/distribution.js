@@ -5,6 +5,7 @@ import _ from "lodash";
 import { withTrello } from "../src/withTrello";
 import { useImmerReducer } from "use-immer";
 import { EstimateRow } from "../src/components/EstimateRow";
+import { Collapse } from "react-collapse";
 
 const INITIAL_STATE = {
   loading: false,
@@ -71,6 +72,7 @@ const calculateDistributions = (cards, estimates, excludedLists = []) => {
 
 const DistributionPage = ({ t }) => {
   const rootEl = useRef(null);
+  const [open, setOpen] = useState(false);
   const [state, dispatch] = useImmerReducer(reducer, INITIAL_STATE);
   const { loading, members, lists, cards, estimates, excludedLists } = state;
 
@@ -163,20 +165,26 @@ const DistributionPage = ({ t }) => {
         );
       })}
 
-      <fieldset>
-        {_.map(lists, (l) => {
-          return (
-            <label key={l.id}>
-              <input
-                checked={excludedLists.indexOf(l.id) > -1}
-                type="checkbox"
-                onChange={() => handleToggle(l.id)}
-              />{" "}
-              {l.name}
-            </label>
-          );
-        })}
-      </fieldset>
+      <button style={{ width: "100%" }} onClick={() => setOpen(!open)}>
+        Edit Lists
+      </button>
+
+      <Collapse isOpened={open}>
+        <fieldset>
+          {_.map(lists, (l) => {
+            return (
+              <label key={l.id}>
+                <input
+                  checked={excludedLists.indexOf(l.id) > -1}
+                  type="checkbox"
+                  onChange={() => handleToggle(l.id)}
+                />{" "}
+                {l.name}
+              </label>
+            );
+          })}
+        </fieldset>
+      </Collapse>
     </div>
   );
 };
