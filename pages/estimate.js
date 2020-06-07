@@ -50,6 +50,7 @@ const EstimatePage = ({ t }) => {
   const onSubmit = async (values) => {
     const { estimate } = values;
     await t.set("card", "shared", "estimate", estimate);
+    t.closePopup();
   };
 
   const { form, handleSubmit, pristine, submitting } = useForm({
