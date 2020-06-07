@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import _ from "lodash";
 import { withTrello } from "../src/withTrello";
 import { useImmerReducer } from "use-immer";
+import { EstimateRow } from "../src/components/EstimateRow";
 
 const INITIAL_STATE = {
   loading: false,
@@ -9,6 +10,7 @@ const INITIAL_STATE = {
   lists: [],
   cards: [],
   estimates: [],
+  excludedLists: [],
 };
 
 const reducer = (draft, action) => {
@@ -17,12 +19,20 @@ const reducer = (draft, action) => {
       draft[action.key] = action.value;
       break;
 
+    case "excludeList":
+      draft.excludedLists = draft.excludedLists.filter((l) => l !== action.id);
+      break;
+
+    case "includeList":
+      draft.excludedLists = [id, ...draft.excludedLists];
+      break;
+
     case "reset":
       return INITIAL_STATE;
   }
 };
 
-const calculateEstimates = (cards, estimates) => {
+const calculateDistributions = (cards, estimates) => {
   return _.reduce(
     cards,
     (acc, card) => {
@@ -54,50 +64,10 @@ const calculateEstimates = (cards, estimates) => {
   );
 };
 
-const rowStyles = {
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  width: "100%",
-  marginBottom: 8,
-};
-
-const avatarStyles = {
-  width: 20,
-  borderRadius: 20,
-  marginRight: 8,
-};
-
-const unknownAvatarStlyes = {
-  width: 20,
-  height: 20,
-  borderRadius: 20,
-  marginRight: 8,
-  backgroundColor: "#ddd",
-};
-
-const EstimateRow = ({ name, hours, avatarUrl, ...rest }) => {
-  return (
-    <div style={rowStyles}>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        {avatarUrl ? (
-          <img style={avatarStyles} src={avatarUrl} />
-        ) : (
-          <div style={unknownAvatarStlyes} />
-        )}
-
-        <span>{name}</span>
-      </div>
-
-      <span>{hours}</span>
-    </div>
-  );
-};
-
 const DistributionPage = ({ t }) => {
   const rootEl = useRef(null);
   const [state, dispatch] = useImmerReducer(reducer, INITIAL_STATE);
-  const { loading, members, lists, cards, estimates } = state;
+  const { loading, members, lists, cards, estimates, excludedLists } = state;
 
   useEffect(() => {
     const fetch = async () => {
@@ -140,13 +110,21 @@ const DistributionPage = ({ t }) => {
     fetch();
   }, [t]);
 
-  const estimateTotals = calculateEstimates(cards, estimates);
+  const estimateTotals = calculateDistributions(cards, estimates);
 
   useEffect(() => {
     if (rootEl.current) {
       t.sizeTo(rootEl.current);
     }
   }, [rootEl.current, estimateTotals]);
+
+  const handleToggle = (id) => {
+    if (excludedLists.indexOf(id) > -1) {
+      dispatch({ type: "excludeList", id });
+    } else {
+      dispatch({ type: "includeList", id });
+    }
+  };
 
   return loading ? (
     "Loading..."
@@ -158,8 +136,30 @@ const DistributionPage = ({ t }) => {
         const avatarUrl = _.get(member, "avatar", null);
         const hours = e ? `${e} hours` : "Zilch";
 
-        return <EstimateRow name={name} avatarUrl={avatarUrl} hours={hours} />;
+        return (
+          <EstimateRow
+            key={memberId}
+            name={name}
+            avatarUrl={avatarUrl}
+            hours={hours}
+          />
+        );
       })}
+
+      <fieldset>
+        {_.map(lists, (l) => {
+          return (
+            <label key={l.id}>
+              <input
+                checked={excludedLists.indexOf(l.id) > -1}
+                type="checkbox"
+                onChange={(e) => handleToggle(l.id)}
+              />{" "}
+              {l.name}
+            </label>
+          );
+        })}
+      </fieldset>
     </div>
   );
 };
