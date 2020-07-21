@@ -11,7 +11,7 @@
   "dependencies": {
     "final-form": "^4.20.0",
     "immer": "^6.0.9",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "next": "^9.4.4",
     "react": "^16.13.1",
     "react-collapse": "^5.0.1",
