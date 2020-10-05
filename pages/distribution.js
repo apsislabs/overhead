@@ -49,6 +49,9 @@ const calculateDistributions = (cards, estimates, excludedLists = []) => {
       }
 
       const estimate = parseFloat(_.get(estimates, card.id));
+      if (_.isNaN(estimate)) {
+        return acc;
+      }
 
       if (card.members.length < 1) {
         if (!_.has(acc, "unassigned")) {

@@ -4,12 +4,6 @@ const EstimatePopup = (t) =>
     url: "estimate",
   });
 
-const SprintPopup = (t) =>
-  t.popup({
-    title: "Sprint",
-    url: "sprint",
-  });
-
 const DistributionPopup = (t) =>
   t.popup({
     title: "Work Distribution",
@@ -23,10 +17,6 @@ TrelloPowerUp.initialize({
       {
         text: "Estimate Size",
         callback: EstimatePopup,
-      },
-      {
-        text: "Sprint",
-        callback: SprintPopup,
       },
     ];
   },
@@ -56,12 +46,6 @@ TrelloPowerUp.initialize({
           text: estimate ? `${estimate} Hours` : null,
           color: estimate ? "green" : null,
           callback: EstimatePopup,
-        },
-        {
-          title: "Sprint",
-          text: sprint,
-          color: sprint ? "light-gray" : null,
-          callback: SprintPopup,
         },
       ];
     });
