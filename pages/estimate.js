@@ -20,7 +20,7 @@ const DistributionPage = () => {
     excludedLists,
   } = trelloData;
 
-  const estimateTotals = calculateHoursByDueDate(cards, estimates);
+  calculateHoursByDueDate(cards, estimates);
 
   // const { unassigned, ...teamTotals } = estimateTotals;
 
