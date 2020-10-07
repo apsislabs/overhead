@@ -2,9 +2,11 @@ import _ from "lodash";
 import { useEffect, useRef } from "react";
 
 export const useTrelloSize = (trello) => {
+  console.log("In Use Trello Size", trello);
+
   const rootEl = useRef(null);
   const resize = () => {
-    if (rootEl.current) {
+    if (rootEl.current && _.isFunction(trello.sizeTo)) {
       trello.sizeTo(rootEl.current);
     }
   };
