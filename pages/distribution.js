@@ -70,7 +70,11 @@ const DistributionPage = ({ t }) => {
         </div>
       )}
 
-      <ListToggler lists={lists} onToggle={toggleListExclusion} />
+      <ListToggler
+        lists={lists}
+        excludedLists={excludedLists}
+        onToggle={toggleListExclusion}
+      />
     </div>
   );
 };

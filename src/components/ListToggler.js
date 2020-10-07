@@ -3,7 +3,7 @@ import React from "react";
 import { CheckboxRow } from "./CheckboxRow";
 import { CollapseButton } from "./CollapseButton";
 
-export const ListToggler = ({ label = "Edit Lists", lists, onToggle }) => {
+export const ListToggler = ({ label = "Edit Lists", lists, excludedLists, onToggle }) => {
   return (
     <>
       <CollapseButton label={label}>
