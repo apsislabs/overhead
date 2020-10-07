@@ -1,7 +1,7 @@
 /* global TrelloPowerUp */
 
 import _ from "lodash";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Collapse } from "react-collapse";
 import { CheckboxRow } from "../src/components/CheckboxRow";
 import { EstimateRow } from "../src/components/EstimateRow";
@@ -69,6 +69,9 @@ const DistributionPage = ({ t }) => {
   );
 
   const { unassigned, ...teamTotals } = estimateTotals;
+
+  // This page resizes when estimate totals changes
+  useEffect(resize, [estimateTotals, loading]);
 
   const handleToggle = (id) => {
     if (excludedLists.indexOf(id) > -1) {
