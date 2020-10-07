@@ -16,7 +16,7 @@ const BreakdownsPage = () => {
   const { loading, labels, cards, estimates } = trelloData;
   const { noDeadline, ...dates } = calculateHoursByDueDate(cards, estimates);
 
-  calculateHoursByLabel(cards, labels);
+  calculateHoursByLabel(cards, labels, estimates);
 
   useEffect(resize, [JSON.stringify(dates), noDeadline]);
 
