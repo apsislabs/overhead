@@ -1,5 +1,18 @@
 import _ from "lodash";
 
+export const calculateHoursByDueDate = (cards, estimates) => {
+  const estimates =  _.reduce(
+    cards,
+    (acc, card) => {
+      console.log(card);
+      return acc;
+    },
+    {}
+  )
+
+  console.log(estimates);
+}
+
 export const calculateDistributions = (
   cards,
   estimates,
