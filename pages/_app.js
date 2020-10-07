@@ -1,8 +1,24 @@
 import App from "next/app";
 import Head from "next/head";
-import React from "react";
+import React, { useContext } from "react";
 
 import "../src/styles/main.scss";
+
+const TrelloSizeContext = React.createContext({ rootEl: null, resize: null });
+
+export const useTrelloSizer = () => useContext(TrelloSizeContext);
+
+const TrelloSizer = ({ trello, children }) => {
+  const [rootEl, resize] = useTrelloSize(t);
+
+  return (
+    <div ref={rootEl}>
+      <TrelloSizeContext.Provider value={{ rootEl, resize }}>
+        {children}
+      </TrelloSizeContext.Provider>
+    </div>
+  );
+};
 
 export default class MyApp extends App {
   state = { trello: null };
@@ -35,7 +51,9 @@ export default class MyApp extends App {
           <script src="https://p.trellocdn.com/power-up.min.js"></script>
         </Head>
 
-        <Component {...pageProps} trello={trello} />
+        <TrelloSizer trello={trello}>
+          <Component {...pageProps} trello={trello} />
+        </TrelloSizer>
       </>
     );
   }

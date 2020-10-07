@@ -1,21 +1,29 @@
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { Collapse } from "react-collapse";
+import { useTrelloSizer } from "../../pages/_app";
 
 export const CollapseButton = ({ label, children, onOpen, onClose }) => {
+  const { resize } = useTrelloSizer();
   const [open, setOpen] = useState(false);
 
-  const handleToggleOpen = () => setOpen(!open);
-
-  useEffect(() => {
+  const handleToggleOpen = () => {
     if (open) {
-      if (_.isFunction(onOpen)) {
-        onOpen();
-      }
-    } else {
+      setOpen(false);
       if (_.isFunction(onClose)) {
         onClose();
       }
+    } else {
+      setOpen(true);
+      if (_.isFunction(onOpen)) {
+        onOpen();
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (_.isFunction(resize)) {
+      resize();
     }
   }, [open]);
 

@@ -9,9 +9,10 @@ import { Loader } from "../src/components/Loader";
 import { useTrelloData } from "../src/hooks/useTrelloData";
 import { useTrelloSize } from "../src/hooks/useTrelloSize";
 import { withTrello } from "../src/withTrello";
+import { useTrelloSizer } from "./_app";
 
 const DistributionPage = ({ t }) => {
-  const [rootEl, resize] = useTrelloSize(t);
+  const { resize } = useTrelloSizer();
 
   const { trelloData, toggleListExclusion } = useTrelloData(t);
 
@@ -36,11 +37,9 @@ const DistributionPage = ({ t }) => {
   useEffect(resize, [JSON.stringify(estimateTotals), loading]);
 
   return loading ? (
-    <div ref={rootEl}>
-      <Loader />
-    </div>
+    <Loader />
   ) : (
-    <div ref={rootEl}>
+    <>
       {_.map(teamTotals, (e, memberId) => {
         const member = _.find(members, (m) => m.id === memberId);
         const name = _.get(member, "fullName", "Unassigned");
@@ -73,11 +72,9 @@ const DistributionPage = ({ t }) => {
       <ListToggler
         lists={lists}
         excludedLists={excludedLists}
-        onOpen={resize}
-        onClose={resize}
         onToggle={toggleListExclusion}
       />
-    </div>
+    </>
   );
 };
 
