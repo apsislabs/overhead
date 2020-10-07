@@ -1,32 +1,6 @@
-import _ from "lodash";
+import _, { reduce } from "lodash";
 
-export const calculateHoursByLabel = (cards, labels, estimates) => {
-  console.log(labels);
-
-  const accumulator = { noLabels: 0 };
-
-  _.each(cards, (c) => {
-    if (!c.labels || c.labels.length < 1) {
-      return;
-    }
-
-    _.each(c.labels, l => {
-      accumulator[l.name] = 0;
-    });
-  });
-
-  console.log(accumulator);
-}
-
-export const calculateHoursByDueDate = (cards, estimates) => {
-  const accumulator = { noDeadline: 0 };
-
-  _.each(cards, (c) => {
-    if (c.due) {
-      accumulator[c.due] = 0;
-    }
-  });
-
+const reduceEstimatesByCard = (cards, estimates, accumulator, cb) => {
   return _.reduce(
     cards,
     (acc, card) => {
@@ -40,16 +14,48 @@ export const calculateHoursByDueDate = (cards, estimates) => {
         return acc;
       }
 
-      if (!card.due) {
-        acc.noDeadline += estimate;
-      } else {
-        acc[card.due] += estimate;
-      }
-
-      return acc;
+      return cb(acc, estimate, card);
     },
     accumulator
   );
+};
+
+export const calculateHoursByLabel = (cards, labels, estimates) => {
+  const accumulator = { noLabels: 0 };
+  _.each(labels, (l) => (accumulator[l.id] = 0));
+
+  const e = reduceEstimatesByCard(
+    cards,
+    estimates,
+    accumulator,
+    (acc, estimate, card) => {
+      _.each(card.labels, (l) => (acc[l.id] += estimate));
+
+      return acc;
+    }
+  );
+
+  console.log(e);
+};
+
+export const calculateHoursByDueDate = (cards, estimates) => {
+  const accumulator = { noDeadline: 0 };
+
+  _.each(cards, (c) => {
+    if (c.due) {
+      accumulator[c.due] = 0;
+    }
+  });
+
+  return reduceEstimatesByCard(cards, estimates, accumulator, (acc, estimate, card) => {
+    if (!card.due) {
+      acc.noDeadline += estimate;
+    } else {
+      acc[card.due] += estimate;
+    }
+
+    return acc;
+  });
 };
 
 export const calculateDistributions = (
