@@ -70,7 +70,7 @@ const BreakdownsPage = () => {
           return (
             <EstimateRow
               avatar={false}
-              name={date.toLocaleString()}
+              name={new Date(date).toLocaleString()}
               hours={estimate}
             />
           );
