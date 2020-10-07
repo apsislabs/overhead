@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useField, useForm } from "react-final-form-hooks";
 import { Loader } from "../src/components/Loader";
 import { useTrello } from "../src/contexts/TrelloContext";
+import { withTrello } from "../src/withTrello";
 
 const inputStyles = {
   marginRight: 8,

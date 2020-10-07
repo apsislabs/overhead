@@ -1,9 +1,10 @@
 import React from "react";
+import { TrelloProvider } from "./contexts/TrelloContext";
 
 export const withTrello = (Component) => ({ trello, ...rest }) => {
   return (
-    <TrelloSizer trello={trello}>
+    <TrelloProvider trello={trello}>
       <Component {...rest} />
-    </TrelloSizer>
+    </TrelloProvider>
   );
 };

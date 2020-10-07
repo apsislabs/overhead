@@ -2,7 +2,7 @@ import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import "../src/styles/main.scss";
 
-export default MyApp = ({ Component, pageProps }) => {
+const MyApp = ({ Component, pageProps }) => {
   const [trello, setTrello] = useState(null);
 
   useEffect(() => {
@@ -23,3 +23,5 @@ export default MyApp = ({ Component, pageProps }) => {
     </>
   );
 };
+
+export default MyApp;
