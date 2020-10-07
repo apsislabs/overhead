@@ -7,11 +7,10 @@ import { EstimateRow } from "../src/components/EstimateRow";
 import { ListToggler } from "../src/components/ListToggler";
 import { Loader } from "../src/components/Loader";
 import { useTrelloData } from "../src/hooks/useTrelloData";
-import { useTrelloSizer } from "./_app";
+import { useTrello } from "./_app";
 
 const DistributionPage = () => {
-  const { trello } = useTrello();
-  const { resize } = useTrelloSizer();
+  const { trello, resize } = useTrello();
   const { trelloData, toggleListExclusion } = useTrelloData(trello);
 
   const {
