@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   loading: false,
   members: [],
   lists: [],
+  labels: [],
   cards: [],
   estimates: [],
   excludedLists: [],
@@ -38,8 +39,9 @@ export const useTrelloData = (trello) => {
       try {
         dispatch({ type: "set", key: "loading", value: true });
 
-        const [memberData, lists, excludedLists] = await Promise.all([
+        const [memberData, labels, lists, excludedLists] = await Promise.all([
           trello.board("members"),
+          trello.board("labels"),
           trello.lists("all"),
           trello.get("member", "private", "excludedLists", []),
         ]);
@@ -64,6 +66,7 @@ export const useTrelloData = (trello) => {
         dispatch({ type: "set", key: "estimates", value: estimates });
         dispatch({ type: "set", key: "members", value: memberData.members });
         dispatch({ type: "set", key: "lists", value: lists });
+        dispatch({ type: "set", key: "labels", value: labels });
         dispatch({ type: "set", key: "cards", value: cards });
         dispatch({ type: "set", key: "excludedLists", value: excludedLists });
       } catch (err) {

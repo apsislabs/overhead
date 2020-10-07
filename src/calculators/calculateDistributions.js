@@ -1,7 +1,19 @@
 import _ from "lodash";
 
-export const calculateHoursByLabel = (cards, estimates) => {
+export const calculateHoursByLabel = (cards, labels, estimates) => {
   console.log(cards);
+  const accumulator = { noLabels: 0 };
+  _.each(cards, (c) => {
+    if (!c.labels || c.labels.length < 1) {
+      return;
+    }
+
+    _.each(c.labels, l => {
+      accumulator[l.name] = 0;
+    });
+  });
+
+  console.log(accumulator);
 }
 
 export const calculateHoursByDueDate = (cards, estimates) => {
