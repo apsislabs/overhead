@@ -30,7 +30,7 @@ const reducer = (draft, action) => {
   }
 };
 
-export const useTrelloData = (deps = []) => {
+export const useTrelloData = (t) => {
   const [state, dispatch] = useImmerReducer(reducer, INITIAL_STATE);
 
   useEffect(() => {
@@ -74,7 +74,7 @@ export const useTrelloData = (deps = []) => {
     };
 
     fetch();
-  }, deps);
+  }, [t]);
 
   // Store any change to excluded lists
   useEffect(() => {
