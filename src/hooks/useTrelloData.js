@@ -63,6 +63,8 @@ export const useTrelloData = (trello) => {
           {}
         );
 
+        console.log(labels);
+
         dispatch({ type: "set", key: "estimates", value: estimates });
         dispatch({ type: "set", key: "members", value: memberData.members });
         dispatch({ type: "set", key: "lists", value: lists });
