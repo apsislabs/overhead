@@ -49,7 +49,7 @@ const calculateDistributions = (cards, estimates, excludedLists = []) => {
 };
 
 const DistributionPage = ({ t }) => {
-  const rootEl = useTrelloSize(t);
+  const [rootEl, resize] = useTrelloSize(t);
   const [open, setOpen] = useState(false);
   const [trelloData, dispatch] = useTrelloData(t);
 
