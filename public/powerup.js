@@ -10,6 +10,12 @@ const DistributionPopup = (t) =>
     url: "distribution",
   });
 
+const BreakdownPopup = (t) =>
+  t.popup({
+    title: "Breakdowns",
+    url: "breakdowns",
+  });
+
 TrelloPowerUp.initialize({
   // Start adding handlers for your capabilities here!
   "card-buttons": function (t, options) {
@@ -55,6 +61,10 @@ TrelloPowerUp.initialize({
       {
         text: "Work Distribution",
         callback: DistributionPopup,
+      },
+      {
+        text: "Breakdowns",
+        callback: BreakdownPopup,
       },
     ];
   },

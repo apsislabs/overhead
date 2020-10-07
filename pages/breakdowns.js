@@ -5,9 +5,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { Collapse } from "react-collapse";
 import { CheckboxRow } from "../src/components/CheckboxRow";
 import { EstimateRow } from "../src/components/EstimateRow";
-import { withTrello } from "../src/withTrello";
 import { Loader } from "../src/components/Loader";
 import { useTrelloData } from "../src/hooks/useTrelloData";
+import { withTrello } from "../src/withTrello";
 
 const calculateDistributions = (cards, estimates, excludedLists = []) => {
   return _.reduce(
@@ -47,7 +47,7 @@ const calculateDistributions = (cards, estimates, excludedLists = []) => {
   );
 };
 
-const DistributionPage = ({ t }) => {
+const BreakdownsPage = ({ t }) => {
   const rootEl = useRef(null);
   const [open, setOpen] = useState(false);
   const [state, dispatch] = useTrelloData();
@@ -142,4 +142,4 @@ const DistributionPage = ({ t }) => {
   );
 };
 
-export default withTrello(DistributionPage);
+export default withTrello(BreakdownsPage);

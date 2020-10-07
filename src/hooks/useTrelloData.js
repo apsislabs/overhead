@@ -1,0 +1,80 @@
+import _ from "lodash";
+import { useEffect } from "react";
+import { useImmerReducer } from "use-immer";
+
+const INITIAL_STATE = {
+  loading: false,
+  members: [],
+  lists: [],
+  cards: [],
+  estimates: [],
+  excludedLists: [],
+};
+
+const reducer = (draft, action) => {
+  switch (action.type) {
+    case "set":
+      draft[action.key] = action.value;
+      break;
+
+    case "excludeList":
+      draft.excludedLists = draft.excludedLists.filter((l) => l !== action.id);
+      break;
+
+    case "includeList":
+      draft.excludedLists = [action.id, ...draft.excludedLists];
+      break;
+
+    case "reset":
+      return INITIAL_STATE;
+  }
+};
+
+
+export const useTrelloData = (deps = []) => {
+  const [state, dispatch] = useImmerReducer(reducer, INITIAL_STATE);
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        dispatch({ type: "set", key: "loading", value: true });
+
+        const [memberData, lists, excludedLists] = await Promise.all([
+          t.board("members"),
+          t.lists("all"),
+          t.get("member", "private", "excludedLists", []),
+        ]);
+
+        const cards = _.flatten(_.map(lists, (l) => l.cards));
+
+        const estimatePromises = _.map(cards, (c) => t.get(c.id, "shared", "estimate", null)
+        );
+
+        const estimateValues = await Promise.all(estimatePromises);
+
+        const estimates = _.reduce(
+          cards,
+          (e, c, i) => {
+            e[c.id] = estimateValues[i];
+            return e;
+          },
+          {}
+        );
+
+        dispatch({ type: "set", key: "estimates", value: estimates });
+        dispatch({ type: "set", key: "members", value: memberData.members });
+        dispatch({ type: "set", key: "lists", value: lists });
+        dispatch({ type: "set", key: "cards", value: cards });
+        dispatch({ type: "set", key: "excludedLists", value: excludedLists });
+      } catch (err) {
+        console.error(err);
+      } finally {
+        dispatch({ type: "set", key: "loading", value: false });
+      }
+    };
+
+    fetch();
+  }, deps);
+
+  return [state, dispatch];
+};
