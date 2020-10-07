@@ -22,8 +22,14 @@ const reduceEstimatesByCard = (cards, estimates, accumulator, cb) => {
 
 export const calculateHoursByLabel = (cards, labels, estimates) => {
   const accumulator = { noLabels: 0 };
-  _.each(labels, (l) => (accumulator[l.id] = 0));
+  _.each(labels, (l) => {
+    if (l.id) {
+      accumulator[l.id] = 0;
+    }
+  });
+
   console.log("Accumulator", accumulator);
+
   const e = reduceEstimatesByCard(
     cards,
     estimates,
@@ -31,7 +37,7 @@ export const calculateHoursByLabel = (cards, labels, estimates) => {
     (acc, estimate, card) => {
       _.each(card.labels, (l) => {
         console.log("Adding", acc[l.id], estimate);
-        acc[l.id] += estimate
+        acc[l.id] += estimate;
       });
 
       return acc;
@@ -50,15 +56,20 @@ export const calculateHoursByDueDate = (cards, estimates) => {
     }
   });
 
-  return reduceEstimatesByCard(cards, estimates, accumulator, (acc, estimate, card) => {
-    if (!card.due) {
-      acc.noDeadline += estimate;
-    } else {
-      acc[card.due] += estimate;
-    }
+  return reduceEstimatesByCard(
+    cards,
+    estimates,
+    accumulator,
+    (acc, estimate, card) => {
+      if (!card.due) {
+        acc.noDeadline += estimate;
+      } else {
+        acc[card.due] += estimate;
+      }
 
-    return acc;
-  });
+      return acc;
+    }
+  );
 };
 
 export const calculateDistributions = (

@@ -1,8 +1,11 @@
 /* global TrelloPowerUp */
 
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import _ from "lodash";
-import { calculateHoursByDueDate, calculateHoursByLabel } from "../src/calculators/calculateDistributions";
+import {
+  calculateHoursByDueDate,
+  calculateHoursByLabel,
+} from "../src/calculators/calculateDistributions";
 import { Loader } from "../src/components/Loader";
 import { useTrello } from "../src/contexts/TrelloContext";
 import { useTrelloData } from "../src/hooks/useTrelloData";
@@ -16,7 +19,11 @@ const BreakdownsPage = () => {
   const { loading, labels, cards, estimates } = trelloData;
   const { noDeadline, ...dates } = calculateHoursByDueDate(cards, estimates);
 
-  calculateHoursByLabel(cards, labels, estimates);
+  const vals = useMemo(calculateHoursByLabel(cards, labels, estimates), [
+    JSON.stringify(cards),
+    JSON.stringify(labels),
+    JSON.stringify(estimates),
+  ]);
 
   useEffect(resize, [JSON.stringify(dates), noDeadline]);
 
