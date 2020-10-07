@@ -31,7 +31,7 @@ const reducer = (draft, action) => {
 };
 
 export const useTrelloData = (trello) => {
-  const [state, dispatch] = useImmerReducer(reducer, INITIAL_STATE);
+  const [trelloData, dispatch] = useImmerReducer(reducer, INITIAL_STATE);
 
   useEffect(() => {
     const fetch = async () => {
@@ -78,8 +78,8 @@ export const useTrelloData = (trello) => {
 
   // Store any change to excluded lists
   useEffect(() => {
-    trello.set("member", "private", "excludedLists", state.excludedLists);
-  }, [trello, JSON.stringify(state.excludedLists)]);
+    trello.set("member", "private", "excludedLists", trelloData.excludedLists);
+  }, [trello, JSON.stringify(trelloData.excludedLists)]);
 
   const toggleListExclusion = (id) => {
     if (excludedLists.indexOf(id) > -1) {
@@ -89,5 +89,5 @@ export const useTrelloData = (trello) => {
     }
   };
 
-  return { state, dispatch, toggleListExclusion };
+  return { trelloData, dispatch, toggleListExclusion };
 };
