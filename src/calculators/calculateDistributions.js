@@ -28,7 +28,7 @@ export const calculateHoursByLabel = (cards, labels, estimates) => {
     }
   });
 
-  const e = reduceEstimatesByCard(
+  return reduceEstimatesByCard(
     cards,
     estimates,
     accumulator,
@@ -44,8 +44,6 @@ export const calculateHoursByLabel = (cards, labels, estimates) => {
       return acc;
     }
   );
-
-  console.log(e);
 };
 
 export const calculateHoursByDueDate = (cards, estimates) => {
