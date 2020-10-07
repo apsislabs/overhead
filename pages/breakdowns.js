@@ -7,6 +7,7 @@ import {
   calculateHoursByLabel,
 } from "../src/calculators/calculateDistributions";
 import { EstimateRow } from "../src/components/EstimateRow";
+import { ListToggler } from "../src/components/ListToggler";
 import { Loader } from "../src/components/Loader";
 import { useTrello } from "../src/contexts/TrelloContext";
 import { useTrelloData } from "../src/hooks/useTrelloData";
@@ -21,21 +22,33 @@ const Section = ({ title, children, ...rest }) => (
 
 const BreakdownsPage = () => {
   const { trello, resize } = useTrello();
-  const { trelloData } = useTrelloData(trello);
+  const { trelloData, toggleListExclusion } = useTrelloData(trello);
 
-  const { loading, labels, cards, estimates } = trelloData;
+  const {
+    loading,
+    labels,
+    lists,
+    cards,
+    estimates,
+    excludedLists,
+  } = trelloData;
 
   const { noDeadline, ...dates } = useMemo(
-    () => calculateHoursByDueDate(cards, estimates),
+    () => calculateHoursByDueDate(cards, estimates, excludedLists),
     [JSON.stringify(cards), JSON.stringify(estimates)]
   );
 
   const { noLabel, ...labelTotals } = useMemo(
-    () => calculateHoursByLabel(cards, labels, estimates),
+    () => calculateHoursByLabel(cards, labels, estimates, excludedLists),
     [JSON.stringify(cards), JSON.stringify(labels), JSON.stringify(estimates)]
   );
 
-  useEffect(resize, [JSON.stringify(dates), noDeadline]);
+  useEffect(resize, [
+    JSON.stringify(dates),
+    noDeadline,
+    JSON.stringify(labelTotals),
+    noLabel,
+  ]);
 
   return loading ? (
     <Loader />
@@ -72,6 +85,14 @@ const BreakdownsPage = () => {
           ) : null;
         })}
       </Section>
+
+      <hr />
+
+      <ListToggler
+        lists={lists}
+        excludedLists={excludedLists}
+        onToggle={toggleListExclusion}
+      />
     </>
   );
 };
