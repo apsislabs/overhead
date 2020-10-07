@@ -1,15 +1,16 @@
 import App from "next/app";
 import Head from "next/head";
 import React, { useContext } from "react";
-
+import { useTrelloSize } from "../src/hooks/useTrelloSize";
 import "../src/styles/main.scss";
+
 
 const TrelloSizeContext = React.createContext({ rootEl: null, resize: null });
 
 export const useTrelloSizer = () => useContext(TrelloSizeContext);
 
 const TrelloSizer = ({ trello, children }) => {
-  const [rootEl, resize] = useTrelloSize(t);
+  const [rootEl, resize] = useTrelloSize(trello);
 
   return (
     <div ref={rootEl}>

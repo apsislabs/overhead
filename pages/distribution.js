@@ -7,7 +7,6 @@ import { EstimateRow } from "../src/components/EstimateRow";
 import { ListToggler } from "../src/components/ListToggler";
 import { Loader } from "../src/components/Loader";
 import { useTrelloData } from "../src/hooks/useTrelloData";
-import { useTrelloSize } from "../src/hooks/useTrelloSize";
 import { withTrello } from "../src/withTrello";
 import { useTrelloSizer } from "./_app";
 
