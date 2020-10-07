@@ -1,8 +1,10 @@
 import _ from "lodash";
 
 export const calculateHoursByLabel = (cards, labels, estimates) => {
-  console.log(cards);
+  console.log(labels);
+
   const accumulator = { noLabels: 0 };
+
   _.each(cards, (c) => {
     if (!c.labels || c.labels.length < 1) {
       return;
