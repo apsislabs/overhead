@@ -29,16 +29,6 @@ const TrelloSizer = ({ trello, children }) => {
 export default class MyApp extends App {
   state = { trello: null };
 
-  static async getInitialProps({ Component, router, ctx }) {
-    let pageProps = {};
-
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
-    }
-
-    return { pageProps };
-  }
-
   componentDidMount() {
     this.setState({ trello: TrelloPowerUp });
   }
@@ -46,6 +36,8 @@ export default class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props;
     const { trello } = this.state;
+
+    console.log("Page Props", pageProps);
 
     return (
       <>
