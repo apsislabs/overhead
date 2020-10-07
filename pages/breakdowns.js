@@ -85,7 +85,7 @@ const BreakdownsPage = () => {
         {_.map(sortedLabelTotals, (hours, labelId) => {
           const label = _.find(labels, (label) => label.id == labelId);
 
-          return labelTotal ? (
+          return hours ? (
             <EstimateRow avatar={false} name={label.name} hours={hours} />
           ) : null;
         })}
