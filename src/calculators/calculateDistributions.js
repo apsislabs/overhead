@@ -12,8 +12,6 @@ export const calculateHoursByDueDate = (cards, estimates) => {
   return _.reduce(
     cards,
     (acc, card) => {
-      console.log(card.due, card.dueComplete, card.dateLastActivity);
-
       if (!_.has(estimates, card.id)) {
         return acc;
       }
