@@ -4,7 +4,6 @@ import React, { useContext } from "react";
 import { useTrelloSize } from "../src/hooks/useTrelloSize";
 import "../src/styles/main.scss";
 
-
 const TrelloSizeContext = React.createContext({ rootEl: null, resize: null });
 
 export const useTrelloSizer = () => useContext(TrelloSizeContext);
