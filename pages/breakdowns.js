@@ -37,12 +37,21 @@ const BreakdownsPage = () => {
 
   const { noDeadline, ...dates } = useMemo(
     () => calculateHoursByDueDate(cards, estimates, excludedLists),
-    [JSON.stringify(cards), JSON.stringify(estimates)]
+    [
+      JSON.stringify(cards),
+      JSON.stringify(estimates),
+      JSON.stringify(excludedLists),
+    ]
   );
 
   const { noLabel, ...labelTotals } = useMemo(
     () => calculateHoursByLabel(cards, labels, estimates, excludedLists),
-    [JSON.stringify(cards), JSON.stringify(labels), JSON.stringify(estimates)]
+    [
+      JSON.stringify(cards),
+      JSON.stringify(labels),
+      JSON.stringify(estimates),
+      JSON.stringify(excludedLists),
+    ]
   );
 
   useEffect(resize, [
