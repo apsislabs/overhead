@@ -1,4 +1,4 @@
-import _, { reduce } from "lodash";
+import _ from "lodash";
 
 const reduceEstimatesByCard = (cards, estimates, accumulator, cb) => {
   return _.reduce(
@@ -29,6 +29,7 @@ export const calculateHoursByLabel = (cards, labels, estimates) => {
     estimates,
     accumulator,
     (acc, estimate, card) => {
+      console.log(card.id, estimate);
       _.each(card.labels, (l) => (acc[l.id] += estimate));
 
       return acc;
