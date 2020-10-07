@@ -73,6 +73,8 @@ const DistributionPage = ({ t }) => {
       <ListToggler
         lists={lists}
         excludedLists={excludedLists}
+        onOpen={resize}
+        onClose={resize}
         onToggle={toggleListExclusion}
       />
     </div>

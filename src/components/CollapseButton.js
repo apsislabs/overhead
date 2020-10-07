@@ -1,14 +1,29 @@
+import _ from "lodash";
 import React, { useState } from "react";
 import { Collapse } from "react-collapse";
 
-export const CollapseButton = ({ label, children }) => {
+export const CollapseButton = ({ label, children, onOpen, onClose }) => {
   const [open, setOpen] = useState(false);
+
+  const handleToggleOpen = () => {
+    if (open) {
+      setOpen(false);
+      if (_.isFunction(onClose)) {
+        onClose();
+      }
+    } else {
+      setOpen(true);
+      if (_.isFunction(onOpen)) {
+        onOpen();
+      }
+    }
+  };
 
   return (
     <>
       <button
         style={{ width: "100%", marginBottom: open ? 8 : 0 }}
-        onClick={() => setOpen(!open)}
+        onClick={handleToggleOpen}
       >
         {label}
       </button>
