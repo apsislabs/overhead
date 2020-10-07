@@ -19,7 +19,9 @@ const MyApp = ({ Component, pageProps }) => {
         <script src="https://p.trellocdn.com/power-up.min.js"></script>
       </Head>
 
-      <Component {...pageProps} trello={trello} />
+      <div className="pop-over-section">
+        <Component {...pageProps} trello={trello} />
+      </div>
     </>
   );
 };
