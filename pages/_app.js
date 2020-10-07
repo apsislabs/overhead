@@ -14,6 +14,7 @@ const TrelloSizer = ({ trello, children }) => {
   }
 
   const t = useCallback(trello.iframe, [trello]);
+  console.log("TrelloSizer:", trello, t);
 
   const [rootEl, resize] = useTrelloSize(t);
 
