@@ -1,6 +1,6 @@
 import App from "next/app";
 import Head from "next/head";
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
 import { useTrelloSize } from "../src/hooks/useTrelloSize";
 import "../src/styles/main.scss";
 
@@ -9,7 +9,13 @@ const TrelloSizeContext = React.createContext({ rootEl: null, resize: null });
 export const useTrelloSizer = () => useContext(TrelloSizeContext);
 
 const TrelloSizer = ({ trello, children }) => {
-  const [rootEl, resize] = useTrelloSize(trello);
+  if (!trello) {
+    return "Waiting for Trello...";
+  }
+
+  const t = useCallback(trello.iframe, [trello]);
+
+  const [rootEl, resize] = useTrelloSize(t);
 
   return (
     <div ref={rootEl}>
@@ -50,14 +56,9 @@ export default class MyApp extends App {
           />
           <script src="https://p.trellocdn.com/power-up.min.js"></script>
         </Head>
-
-        {trello ? (
-          <TrelloSizer trello={trello}>
-            <Component {...pageProps} trello={trello} />
-          </TrelloSizer>
-        ) : (
-          "Loading..."
-        )}
+        <TrelloSizer trello={trello}>
+          <Component {...pageProps} trello={trello} />
+        </TrelloSizer>
       </>
     );
   }
