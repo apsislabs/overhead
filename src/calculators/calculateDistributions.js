@@ -1,5 +1,9 @@
 import _ from "lodash";
 
+export const calculateHoursByLabel = (cards, estimates) => {
+  console.log(cards);
+}
+
 export const calculateHoursByDueDate = (cards, estimates) => {
   const accumulator = { noDeadline: 0 };
 

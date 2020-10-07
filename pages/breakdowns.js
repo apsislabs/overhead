@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import _ from "lodash";
-import { calculateHoursByDueDate } from "../src/calculators/calculateDistributions";
+import { calculateHoursByDueDate, calculateHoursByLabel } from "../src/calculators/calculateDistributions";
 import { Loader } from "../src/components/Loader";
 import { useTrello } from "../src/contexts/TrelloContext";
 import { useTrelloData } from "../src/hooks/useTrelloData";
@@ -15,6 +15,8 @@ const BreakdownsPage = () => {
 
   const { loading, cards, estimates } = trelloData;
   const { noDeadline, ...dates } = calculateHoursByDueDate(cards, estimates);
+
+  calculateHoursByLabel(cards);
 
   useEffect(resize, [JSON.stringify(dates), noDeadline]);
 
