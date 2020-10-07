@@ -1,13 +1,14 @@
 /* global TrelloPowerUp */
 
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { Collapse } from "react-collapse";
 import { CheckboxRow } from "../src/components/CheckboxRow";
 import { EstimateRow } from "../src/components/EstimateRow";
-import { withTrello } from "../src/withTrello";
 import { Loader } from "../src/components/Loader";
 import { useTrelloData } from "../src/hooks/useTrelloData";
+import { useTrelloSize } from "../src/hooks/useTrelloSize";
+import { withTrello } from "../src/withTrello";
 
 const calculateDistributions = (cards, estimates, excludedLists = []) => {
   return _.reduce(
@@ -48,10 +49,17 @@ const calculateDistributions = (cards, estimates, excludedLists = []) => {
 };
 
 const DistributionPage = ({ t }) => {
-  const rootEl = useRef(null);
+  const rootEl = useTrelloSize(t);
   const [open, setOpen] = useState(false);
-  const [state, dispatch] = useTrelloData();
-  const { loading, members, lists, cards, estimates, excludedLists } = state;
+  const [trelloData, dispatch] = useTrelloData();
+  const {
+    loading,
+    members,
+    lists,
+    cards,
+    estimates,
+    excludedLists,
+  } = trelloData;
 
   const estimateTotals = calculateDistributions(
     cards,
@@ -60,18 +68,6 @@ const DistributionPage = ({ t }) => {
   );
 
   const { unassigned, ...teamTotals } = estimateTotals;
-
-  // Resize when recalculating the estimates
-  useEffect(() => {
-    if (rootEl.current) {
-      t.sizeTo(rootEl.current);
-    }
-  }, [rootEl.current, estimateTotals]);
-
-  // Store any change to excluded lists
-  useEffect(() => {
-    t.set("member", "private", "excludedLists", excludedLists);
-  }, [excludedLists]);
 
   const handleToggle = (id) => {
     if (excludedLists.indexOf(id) > -1) {
