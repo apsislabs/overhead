@@ -20,6 +20,8 @@ const Section = ({ title, children, ...rest }) => (
   </div>
 );
 
+const sortDescByValue = (c) => _.fromPairs(_.sortBy(_.toPairs(c), 1).reverse());
+
 const BreakdownsPage = () => {
   const { trello, resize } = useTrello();
   const { trelloData, toggleListExclusion } = useTrelloData(trello);
@@ -50,6 +52,9 @@ const BreakdownsPage = () => {
     noLabel,
   ]);
 
+  const sortedLabelTotals = sortDescByValue(labelTotals);
+  const sortedDates = sortDescByValue(dates);
+
   return loading ? (
     <Loader />
   ) : (
@@ -57,7 +62,7 @@ const BreakdownsPage = () => {
       <Section ttile="Points by Due Date">
         <EstimateRow avatar={false} name="No Deadline" hours={noDeadline} />
 
-        {_.map(dates, (estimate, date) => {
+        {_.map(sortedDates, (estimate, date) => {
           if (date === null) {
             return;
           }
@@ -77,11 +82,11 @@ const BreakdownsPage = () => {
       <Section title="Points by Label">
         <EstimateRow avatar={false} name="No Label" hours={noLabel} />
 
-        {_.map(labels, (l) => {
-          const labelTotal = _.get(labelTotals, l.id);
+        {_.map(sortedLabelTotals, (hours, labelId) => {
+          const label = _.find(labels, (label) => label.id == labelId);
 
           return labelTotal ? (
-            <EstimateRow avatar={false} name={l.name} hours={labelTotal} />
+            <EstimateRow avatar={false} name={label.name} hours={hours} />
           ) : null;
         })}
       </Section>
