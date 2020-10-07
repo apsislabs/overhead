@@ -81,5 +81,13 @@ export const useTrelloData = (trello) => {
     trello.set("member", "private", "excludedLists", state.excludedLists);
   }, [trello, JSON.stringify(state.excludedLists)]);
 
-  return [state, dispatch];
+  const toggleListExclusion = (id) => {
+    if (excludedLists.indexOf(id) > -1) {
+      dispatch({ type: "excludeList", id });
+    } else {
+      dispatch({ type: "includeList", id });
+    }
+  };
+
+  return { state, dispatch, toggleListExclusion };
 };
