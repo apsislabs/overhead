@@ -1,23 +1,23 @@
 import _ from "lodash";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Collapse } from "react-collapse";
 
 export const CollapseButton = ({ label, children, onOpen, onClose }) => {
   const [open, setOpen] = useState(false);
 
-  const handleToggleOpen = () => {
+  const handleToggleOpen = () => setOpen(!open);
+
+  useEffect(() => {
     if (open) {
-      setOpen(false);
-      if (_.isFunction(onClose)) {
-        onClose();
-      }
-    } else {
-      setOpen(true);
       if (_.isFunction(onOpen)) {
         onOpen();
       }
+    } else {
+      if (_.isFunction(onClose)) {
+        onClose();
+      }
     }
-  };
+  }, [open]);
 
   return (
     <>
