@@ -31,7 +31,8 @@ const BreakdownsPage = () => {
     <Loader />
   ) : (
     <div>
-      {_.map(dates, (date, estimate) => {
+      <div>No Deadline: {noDeadline}</div>
+      {_.map(dates, (estimate, date) => {
         if (date === null) {
           return;
         }
