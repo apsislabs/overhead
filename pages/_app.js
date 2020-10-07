@@ -52,9 +52,13 @@ export default class MyApp extends App {
           <script src="https://p.trellocdn.com/power-up.min.js"></script>
         </Head>
 
-        <TrelloSizer trello={trello}>
-          <Component {...pageProps} trello={trello} />
-        </TrelloSizer>
+        {trello ? (
+          <TrelloSizer trello={trello}>
+            <Component {...pageProps} trello={trello} />
+          </TrelloSizer>
+        ) : (
+          "Loading..."
+        )}
       </>
     );
   }
