@@ -4,12 +4,12 @@ import { useEffect, useRef } from "react";
 export const useTrelloSize = (trello) => {
   const rootEl = useRef(null);
   const resize = () => {
-    if (rootEl.current && _.isFunction(trello.sizeTo)) {
+    if (rootEl.current) {
       trello.sizeTo(rootEl.current);
     }
   };
   // Resize when recalculating the estimates
-  useEffect(resize, [rootEl.current]);
+  useEffect(resize, [trello, rootEl.current]);
 
   return [rootEl, resize];
 };
