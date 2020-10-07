@@ -23,7 +23,7 @@ const reduceEstimatesByCard = (cards, estimates, accumulator, cb) => {
 export const calculateHoursByLabel = (cards, labels, estimates) => {
   const accumulator = { noLabels: 0 };
   _.each(labels, (l) => (accumulator[l.id] = 0));
-
+  console.log("Accumulator", accumulator);
   const e = reduceEstimatesByCard(
     cards,
     estimates,
