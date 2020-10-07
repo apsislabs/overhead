@@ -82,7 +82,7 @@ export const useTrelloData = (trello) => {
   }, [trello, JSON.stringify(trelloData.excludedLists)]);
 
   const toggleListExclusion = (id) => {
-    if (excludedLists.indexOf(id) > -1) {
+    if (trelloData.excludedLists.indexOf(id) > -1) {
       dispatch({ type: "excludeList", id });
     } else {
       dispatch({ type: "includeList", id });
