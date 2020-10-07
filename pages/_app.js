@@ -1,57 +1,25 @@
-import App from "next/app";
 import Head from "next/head";
-import React, { useCallback, useContext } from "react";
-import { useTrelloSize } from "../src/hooks/useTrelloSize";
+import React, { useEffect, useState } from "react";
 import "../src/styles/main.scss";
 
-const TrelloContext = React.createContext({ rootEl: null, resize: null, trello: null });
+export default MyApp = ({ Component, pageProps }) => {
+  const [trello, setTrello] = useState(null);
 
-export const useTrello = () => useContext(TrelloContext);
-
-const TrelloSizer = ({ trello, children }) => {
-  if (!trello) {
-    return "Waiting for Trello...";
-  }
-
-  const t = useCallback(trello.iframe, [trello]);
-  const trelloFrame = t();
-  const [rootEl, resize] = useTrelloSize(trelloFrame);
+  useEffect(() => {
+    setTrello(TrelloPowerUp);
+  }, []);
 
   return (
-    <div ref={rootEl}>
-      <TrelloContext.Provider value={{ rootEl, resize, trello: trelloFrame }}>
-        {children}
-      </TrelloContext.Provider>
-    </div>
+    <>
+      <Head>
+        <link
+          rel="stylesheet"
+          href="https://p.trellocdn.com/power-up.min.css"
+        />
+        <script src="https://p.trellocdn.com/power-up.min.js"></script>
+      </Head>
+
+      <Component {...pageProps} trello={trello} />
+    </>
   );
 };
-
-export default class MyApp extends App {
-  state = { trello: null };
-
-  componentDidMount() {
-    this.setState({ trello: TrelloPowerUp });
-  }
-
-  render() {
-    const { Component, pageProps } = this.props;
-    const { trello } = this.state;
-
-    console.log("Page Props", pageProps);
-
-    return (
-      <>
-        <Head>
-          <link
-            rel="stylesheet"
-            href="https://p.trellocdn.com/power-up.min.css"
-          />
-          <script src="https://p.trellocdn.com/power-up.min.js"></script>
-        </Head>
-        <TrelloSizer trello={trello}>
-          <Component {...pageProps} />
-        </TrelloSizer>
-      </>
-    );
-  }
-}

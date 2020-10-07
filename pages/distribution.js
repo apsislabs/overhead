@@ -7,7 +7,8 @@ import { EstimateRow } from "../src/components/EstimateRow";
 import { ListToggler } from "../src/components/ListToggler";
 import { Loader } from "../src/components/Loader";
 import { useTrelloData } from "../src/hooks/useTrelloData";
-import { useTrello } from "./_app";
+import { useTrello } from "../src/contexts/TrelloContext";
+import { withTrello } from "../src/withTrello";
 
 const DistributionPage = () => {
   const { trello, resize } = useTrello();
@@ -75,4 +76,4 @@ const DistributionPage = () => {
   );
 };
 
-export default DistributionPage;
+export default withTrello(DistributionPage);

@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useField, useForm } from "react-final-form-hooks";
 import { Loader } from "../src/components/Loader";
-import { useTrello } from "./_app";
+import { useTrello } from "../src/contexts/TrelloContext";
 
 const inputStyles = {
   marginRight: 8,
@@ -95,4 +95,4 @@ const EstimatePage = () => {
   );
 };
 
-export default EstimatePage;
+export default withTrello(EstimatePage);

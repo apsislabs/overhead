@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { Collapse } from "react-collapse";
-import { useTrello } from "../../pages/_app";
+import { useTrello } from "../contexts/TrelloContext";
 
 export const CollapseButton = ({ label, children, onOpen, onClose }) => {
   const { resize } = useTrello();
