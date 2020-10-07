@@ -35,17 +35,27 @@ const getBadgeColor = (hours) => {
   }
 };
 
-export const EstimateRow = ({ name, hours, avatarUrl, ...rest }) => {
+export const EstimateRow = ({
+  name,
+  hours,
+  avatarUrl,
+  avatar = true,
+  ...rest
+}) => {
   const badgeVariant = getBadgeColor(hours);
   const hoursLabel = hours ? `${hours} hours` : "Zilch";
 
   return (
     <div style={rowStyles} {...rest}>
       <div style={{ display: "flex", alignItems: "center" }}>
-        {avatarUrl ? (
-          <img style={avatarStyles} src={avatarUrl} />
-        ) : (
-          <div style={unknownAvatarStlyes} />
+        {avatar && (
+          <>
+            {avatarUrl ? (
+              <img style={avatarStyles} src={avatarUrl} />
+            ) : (
+              <div style={unknownAvatarStlyes} />
+            )}
+          </>
         )}
 
         <span>{name}</span>

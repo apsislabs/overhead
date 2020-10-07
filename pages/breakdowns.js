@@ -7,6 +7,7 @@ import { Loader } from "../src/components/Loader";
 import { useTrello } from "../src/contexts/TrelloContext";
 import { useTrelloData } from "../src/hooks/useTrelloData";
 import { withTrello } from "../src/withTrello";
+import { EstimateRow } from "../src/components/EstimateRow";
 
 const BreakdownsPage = () => {
   const { trello, resize } = useTrello();
@@ -21,7 +22,7 @@ const BreakdownsPage = () => {
     <Loader />
   ) : (
     <div>
-      <div>No Deadline: {noDeadline}</div>
+      <EstimateRow avatar={false} name="No Deadline" hours={noDeadline} />
 
       {_.map(dates, (estimate, date) => {
         if (date === null) {
@@ -29,9 +30,11 @@ const BreakdownsPage = () => {
         }
 
         return (
-          <div>
-            {date}: {estimate}
-          </div>
+          <EstimateRow
+            avatar={false}
+            name={date.toLocaleString()}
+            hours={estimate}
+          />
         );
       })}
     </div>
