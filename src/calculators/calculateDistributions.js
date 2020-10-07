@@ -4,7 +4,7 @@ export const calculateHoursByDueDate = (cards, estimates) => {
   const accumulator = { noDeadline: 0 };
   _.each(cards, (c) => (accumulator[c.due] = 0));
 
-  const e = _.reduce(
+  return _.reduce(
     cards,
     (acc, card) => {
       console.log(card.due, card.dueComplete, card.dateLastActivity);
@@ -20,7 +20,7 @@ export const calculateHoursByDueDate = (cards, estimates) => {
       }
 
       if (!card.due) {
-        acc["noDeadline"] += estimate;
+        acc.noDeadline += estimate;
       } else {
         acc[card.due] += estimate;
       }
@@ -29,8 +29,6 @@ export const calculateHoursByDueDate = (cards, estimates) => {
     },
     accumulator
   );
-
-  console.log(e);
 };
 
 export const calculateDistributions = (
