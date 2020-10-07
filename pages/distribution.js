@@ -82,7 +82,9 @@ const DistributionPage = ({ t }) => {
   };
 
   return loading ? (
-    <Loader />
+    <div ref={rootEl}>
+      <Loader />
+    </div>
   ) : (
     <div ref={rootEl}>
       {_.map(teamTotals, (e, memberId) => {
