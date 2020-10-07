@@ -9,7 +9,7 @@ export const ListToggler = ({ label = "Edit Lists", lists, onToggle }) => {
   return (
     <>
       <button
-        style={{ width: "100%", marginBottom: 8 }}
+        style={{ width: "100%", marginBottom: open ? 8 : 0 }}
         onClick={() => setOpen(!open)}
       >
         {label}
