@@ -2,7 +2,12 @@ import _ from "lodash";
 
 export const calculateHoursByDueDate = (cards, estimates) => {
   const accumulator = { noDeadline: 0 };
-  _.each(cards, (c) => (accumulator[c.due] = 0));
+
+  _.each(cards, (c) => {
+    if (c.due) {
+      accumulator[c.due] = 0;
+    }
+  });
 
   return _.reduce(
     cards,
