@@ -2,8 +2,8 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { useField, useForm } from "react-final-form-hooks";
-import { withTrello } from "../src/withTrello";
 import { Loader } from "../src/components/Loader";
+import { useTrello } from "./_app";
 
 const inputStyles = {
   marginRight: 8,
@@ -21,7 +21,8 @@ const rowStyles = {
 
 const mustBeNumber = (value) => (isNaN(value) ? "Must be a number" : undefined);
 
-const EstimatePage = ({ t }) => {
+const EstimatePage = () => {
+  const { trello } = useTrello();
   const rootEl = useRef(null);
   const [loading, setLoading] = useState(false);
   const [estimate, setEstimate] = useState("");
@@ -30,7 +31,12 @@ const EstimatePage = ({ t }) => {
     const fetch = async () => {
       try {
         setLoading(true);
-        const storedEstimate = await t.get("card", "shared", "estimate", "");
+        const storedEstimate = await trello.get(
+          "card",
+          "shared",
+          "estimate",
+          ""
+        );
         setEstimate(storedEstimate);
       } catch (err) {
         console.error(err);
@@ -40,18 +46,18 @@ const EstimatePage = ({ t }) => {
     };
 
     fetch();
-  }, [t]);
+  }, [trello]);
 
   useEffect(() => {
     if (rootEl.current) {
-      t.sizeTo(rootEl.current);
+      trello.sizeTo(rootEl.current);
     }
   }, [rootEl.current]);
 
   const onSubmit = async (values) => {
     const { estimate } = values;
-    await t.set("card", "shared", "estimate", estimate);
-    t.closePopup();
+    await trello.set("card", "shared", "estimate", estimate);
+    trello.closePopup();
   };
 
   const { form, handleSubmit, pristine, submitting } = useForm({
@@ -89,4 +95,4 @@ const EstimatePage = ({ t }) => {
   );
 };
 
-export default withTrello(EstimatePage);
+export default EstimatePage;
