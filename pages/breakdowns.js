@@ -1,16 +1,16 @@
 /* global TrelloPowerUp */
 
-import React, { useEffect, useMemo } from "react";
 import _ from "lodash";
+import React, { useEffect, useMemo } from "react";
 import {
   calculateHoursByDueDate,
-  calculateHoursByLabel,
+  calculateHoursByLabel
 } from "../src/calculators/calculateDistributions";
+import { EstimateRow } from "../src/components/EstimateRow";
 import { Loader } from "../src/components/Loader";
 import { useTrello } from "../src/contexts/TrelloContext";
 import { useTrelloData } from "../src/hooks/useTrelloData";
 import { withTrello } from "../src/withTrello";
-import { EstimateRow } from "../src/components/EstimateRow";
 
 const BreakdownsPage = () => {
   const { trello, resize } = useTrello();
@@ -19,7 +19,7 @@ const BreakdownsPage = () => {
   const { loading, labels, cards, estimates } = trelloData;
   const { noDeadline, ...dates } = calculateHoursByDueDate(cards, estimates);
 
-  const vals = useMemo(calculateHoursByLabel(cards, labels, estimates), [
+  const vals = useMemo(() => calculateHoursByLabel(cards, labels, estimates), [
     JSON.stringify(cards),
     JSON.stringify(labels),
     JSON.stringify(estimates),
