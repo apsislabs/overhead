@@ -30,7 +30,7 @@ const reducer = (draft, action) => {
   }
 };
 
-export const useTrelloData = (t) => {
+export const useTrelloData = (trello) => {
   const [state, dispatch] = useImmerReducer(reducer, INITIAL_STATE);
 
   useEffect(() => {
@@ -39,15 +39,15 @@ export const useTrelloData = (t) => {
         dispatch({ type: "set", key: "loading", value: true });
 
         const [memberData, lists, excludedLists] = await Promise.all([
-          t.board("members"),
-          t.lists("all"),
-          t.get("member", "private", "excludedLists", []),
+          trello.board("members"),
+          trello.lists("all"),
+          trello.get("member", "private", "excludedLists", []),
         ]);
 
         const cards = _.flatten(_.map(lists, (l) => l.cards));
 
         const estimatePromises = _.map(cards, (c) =>
-          t.get(c.id, "shared", "estimate", null)
+          trello.get(c.id, "shared", "estimate", null)
         );
 
         const estimateValues = await Promise.all(estimatePromises);
@@ -74,12 +74,12 @@ export const useTrelloData = (t) => {
     };
 
     fetch();
-  }, [t]);
+  }, [trello]);
 
   // Store any change to excluded lists
   useEffect(() => {
-    t.set("member", "private", "excludedLists", state.excludedLists);
-  }, [JSON.stringify(state.excludedLists)]);
+    trello.set("member", "private", "excludedLists", state.excludedLists);
+  }, [trello, JSON.stringify(state.excludedLists)]);
 
   return [state, dispatch];
 };

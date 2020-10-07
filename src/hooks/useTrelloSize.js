@@ -8,7 +8,7 @@ export const useTrelloSize = (trello) => {
     if (rootEl.current) {
       trello.sizeTo(rootEl.current);
     }
-  }, [rootEl.current, estimateTotals]);
+  }, [rootEl.current]);
 
   return rootEl;
 };
