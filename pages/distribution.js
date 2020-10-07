@@ -10,10 +10,10 @@ import { useTrelloData } from "../src/hooks/useTrelloData";
 import { withTrello } from "../src/withTrello";
 import { useTrelloSizer } from "./_app";
 
-const DistributionPage = ({ t }) => {
+export const DistributionPage = () => {
+  const { trello } = useTrello();
   const { resize } = useTrelloSizer();
-
-  const { trelloData, toggleListExclusion } = useTrelloData(t);
+  const { trelloData, toggleListExclusion } = useTrelloData(trello);
 
   const {
     loading,
@@ -76,5 +76,3 @@ const DistributionPage = ({ t }) => {
     </>
   );
 };
-
-export default withTrello(DistributionPage);

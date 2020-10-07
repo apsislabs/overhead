@@ -4,9 +4,9 @@ import React, { useCallback, useContext } from "react";
 import { useTrelloSize } from "../src/hooks/useTrelloSize";
 import "../src/styles/main.scss";
 
-const TrelloSizeContext = React.createContext({ rootEl: null, resize: null });
+const TrelloContext = React.createContext({ rootEl: null, resize: null, trello: null });
 
-export const useTrelloSizer = () => useContext(TrelloSizeContext);
+export const useTrello = () => useContext(TrelloContext);
 
 const TrelloSizer = ({ trello, children }) => {
   if (!trello) {
@@ -14,13 +14,14 @@ const TrelloSizer = ({ trello, children }) => {
   }
 
   const t = useCallback(trello.iframe, [trello]);
-  const [rootEl, resize] = useTrelloSize(t());
+  const trelloFrame = t();
+  const [rootEl, resize] = useTrelloSize(trelloFrame);
 
   return (
     <div ref={rootEl}>
-      <TrelloSizeContext.Provider value={{ rootEl, resize }}>
+      <TrelloContext.Provider value={{ rootEl, resize, trello: trelloFrame }}>
         {children}
-      </TrelloSizeContext.Provider>
+      </TrelloContext.Provider>
     </div>
   );
 };
@@ -56,7 +57,7 @@ export default class MyApp extends App {
           <script src="https://p.trellocdn.com/power-up.min.js"></script>
         </Head>
         <TrelloSizer trello={trello}>
-          <Component {...pageProps} trello={trello} />
+          <Component {...pageProps} />
         </TrelloSizer>
       </>
     );
