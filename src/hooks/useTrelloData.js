@@ -39,7 +39,7 @@ export const useTrelloData = (trello) => {
       try {
         dispatch({ type: "set", key: "loading", value: true });
 
-        const [memberData, labels, lists, excludedLists] = await Promise.all([
+        const [memberData, labelData, lists, excludedLists] = await Promise.all([
           trello.board("members"),
           trello.board("labels"),
           trello.lists("all"),
@@ -68,7 +68,7 @@ export const useTrelloData = (trello) => {
         dispatch({ type: "set", key: "estimates", value: estimates });
         dispatch({ type: "set", key: "members", value: memberData.members });
         dispatch({ type: "set", key: "lists", value: lists });
-        dispatch({ type: "set", key: "labels", value: labels });
+        dispatch({ type: "set", key: "labels", value: labelData.labels });
         dispatch({ type: "set", key: "cards", value: cards });
         dispatch({ type: "set", key: "excludedLists", value: excludedLists });
       } catch (err) {
