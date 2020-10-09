@@ -68,7 +68,7 @@ const BreakdownsPage = () => {
     <Loader />
   ) : (
     <>
-      <Section ttile="Points by Due Date">
+      <Section title="Points by Due Date">
         <EstimateRow avatar={false} name="No Deadline" hours={noDeadline} />
 
         {_.map(sortedDates, (estimate, date) => {
