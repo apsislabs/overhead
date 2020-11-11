@@ -10,14 +10,14 @@
   },
   "dependencies": {
     "final-form": "^4.20.1",
-    "immer": "^7.0.9",
+    "immer": "^7.0.14",
     "lodash": "^4.17.20",
-    "next": "^9.5.3",
-    "react": "^16.13.1",
+    "next": "^10.0.1",
+    "react": "^17.0.1",
     "react-collapse": "^5.0.1",
-    "react-dom": "^16.13.1",
+    "react-dom": "^17.0.1",
     "react-final-form-hooks": "^2.0.2",
-    "sass": "^1.26.12",
+    "sass": "^1.29.0",
     "use-immer": "^0.4.1"
   }
 }
