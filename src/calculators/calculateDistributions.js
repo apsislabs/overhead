@@ -89,16 +89,23 @@ export const calculateHoursByDueDate = (
 };
 
 export const countUnestimatedCards = (cards, estimates, excludedLists = []) => {
+  console.log("-----------------------------------");
+  console.log(cards, estimates, excludedLists);
+
   const includedCards = _.filter(
     cards,
     (c) => excludedLists.indexOf(c.idList) > -1
   );
+
+  console.log("Included: ", includedCards);
 
   const unestimatedCards = _.filter(
     includedCards,
     (c) => !_.has(estimates, c.id)
   );
 
+  console.log("Unestimated: ", unestimatedCards);
+  console.log("-----------------------------------");
   return unestimatedCards.length;
 };
 
