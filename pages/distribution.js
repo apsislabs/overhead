@@ -2,12 +2,15 @@
 
 import _ from "lodash";
 import React, { useEffect } from "react";
-import { calculateDistributions } from "../src/calculators/calculateDistributions";
+import {
+  calculateDistributions,
+  countUnestimatedCards,
+} from "../src/calculators/calculateDistributions";
 import { EstimateRow } from "../src/components/EstimateRow";
 import { ListToggler } from "../src/components/ListToggler";
 import { Loader } from "../src/components/Loader";
-import { useTrelloData } from "../src/hooks/useTrelloData";
 import { useTrello } from "../src/contexts/TrelloContext";
+import { useTrelloData } from "../src/hooks/useTrelloData";
 import { withTrello } from "../src/withTrello";
 
 const DistributionPage = () => {
@@ -29,7 +32,8 @@ const DistributionPage = () => {
     excludedLists
   );
 
-  const { unassigned, unestimated, ...teamTotals } = estimateTotals;
+  const { unassigned, ...teamTotals } = estimateTotals;
+  const unestimated = countUnestimatedCards(cards, estimates, excludedLists);
 
   // This page resizes when estimate totals changes
   useEffect(resize, [JSON.stringify(estimateTotals), loading]);

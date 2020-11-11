@@ -88,6 +88,20 @@ export const calculateHoursByDueDate = (
   );
 };
 
+export const countUnestimatedCards = (cards, estimates, excludedLists = []) => {
+  const includedCards = _.filter(
+    cards,
+    (c) => excludedLists.indexOf(c.idList) > -1
+  );
+
+  const unestimatedCards = _.filter(
+    includedCards,
+    (c) => !_.has(estimates, c.id)
+  );
+
+  return unestimatedCards.length;
+};
+
 export const calculateDistributions = (
   cards,
   estimates,
@@ -96,16 +110,10 @@ export const calculateDistributions = (
   return _.reduce(
     cards,
     (acc, card) => {
-      if (excludedLists.indexOf(card.idList) > -1) {
-        return acc;
-      }
-
-      if (!_.has(estimates, card.id)) {
-        if (!_.has(acc, "unestimated")) {
-          _.set(acc, "unestimated", 0);
-        }
-
-        acc["unestimated"] += 1;
+      if (
+        excludedLists.indexOf(card.idList) > -1 ||
+        !_.has(estimates, card.id)
+      ) {
         return acc;
       }
 
