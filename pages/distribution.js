@@ -29,7 +29,7 @@ const DistributionPage = () => {
     excludedLists
   );
 
-  const { unassigned, ...teamTotals } = estimateTotals;
+  const { unassigned, unestimated, ...teamTotals } = estimateTotals;
 
   // This page resizes when estimate totals changes
   useEffect(resize, [JSON.stringify(estimateTotals), loading]);
@@ -58,6 +58,12 @@ const DistributionPage = () => {
       {typeof unassigned !== "undefined" && (
         <div>
           <strong>Unassigned:</strong> {unassigned} Hours
+        </div>
+      )}
+
+      {typeof unestimated !== "undefined" && (
+        <div>
+          <strong>Unestimated:</strong> {unestimated} Cards
         </div>
       )}
 

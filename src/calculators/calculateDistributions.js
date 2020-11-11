@@ -96,10 +96,16 @@ export const calculateDistributions = (
   return _.reduce(
     cards,
     (acc, card) => {
-      if (
-        excludedLists.indexOf(card.idList) > -1 ||
-        !_.has(estimates, card.id)
-      ) {
+      if (excludedLists.indexOf(card.idList) > -1) {
+        return acc;
+      }
+
+      if (!_.has(estimates, card.id)) {
+        if (!_.has(acc, "unestimated")) {
+          _.set(acc, "unestimated", 0);
+        }
+
+        acc["unestimated"] += 1;
         return acc;
       }
 
