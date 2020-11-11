@@ -101,7 +101,7 @@ export const countUnestimatedCards = (cards, estimates, excludedLists = []) => {
 
   const unestimatedCards = _.filter(
     includedCards,
-    (c) => !_.has(estimates, c.id)
+    (c) => _.get(estimates, card.id, null) === null
   );
 
   console.log("Unestimated: ", unestimatedCards);
@@ -119,7 +119,7 @@ export const calculateDistributions = (
     (acc, card) => {
       if (
         excludedLists.indexOf(card.idList) > -1 ||
-        !_.has(estimates, card.id)
+        _.get(estimates, card.id, null) === null
       ) {
         return acc;
       }
