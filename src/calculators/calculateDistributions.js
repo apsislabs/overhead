@@ -94,7 +94,7 @@ export const countUnestimatedCards = (cards, estimates, excludedLists = []) => {
 
   const includedCards = _.filter(
     cards,
-    (c) => excludedLists.indexOf(c.idList) > -1
+    (c) => excludedLists.indexOf(c.idList) === -1
   );
 
   console.log("Included: ", includedCards);
