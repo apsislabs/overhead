@@ -69,27 +69,49 @@ const BreakdownsPage = () => {
   ) : (
     <>
       <Section title="Points by Due Date">
-        <EstimateRow avatar={false} name="No Deadline" hours={noDeadline} />
+        <EstimateRow
+          avatar={false}
+          name="No Deadline"
+          hours={noDeadline}
+          useColors={false}
+        />
 
         {_.map(sortedDates, (estimate, date) => {
           if (date === null || estimate === 0) {
             return;
           }
 
-          return <EstimateRow avatar={false} name={date} hours={estimate} />;
+          return (
+            <EstimateRow
+              avatar={false}
+              name={date}
+              hours={estimate}
+              useColors={false}
+            />
+          );
         })}
       </Section>
 
       <hr />
 
       <Section title="Points by Label">
-        <EstimateRow avatar={false} name="No Label" hours={noLabel} />
+        <EstimateRow
+          avatar={false}
+          name="No Label"
+          hours={noLabel}
+          useColors={false}
+        />
 
         {_.map(sortedLabelTotals, (hours, labelId) => {
           const label = _.find(labels, (label) => label.id == labelId);
 
           return hours ? (
-            <EstimateRow avatar={false} name={label.name} hours={hours} />
+            <EstimateRow
+              avatar={false}
+              name={label.name}
+              hours={hours}
+              useColors={false}
+            />
           ) : null;
         })}
       </Section>

@@ -23,6 +23,8 @@ const unknownAvatarStlyes = {
   backgroundColor: "#ddd",
 };
 
+const DEFAULT_COLOR = ["shades", 40];
+
 const getBadgeColor = (hours) => {
   if (hours >= 18 && hours <= 22) {
     return ["green", 500];
@@ -31,18 +33,21 @@ const getBadgeColor = (hours) => {
   } else if (hours > 22) {
     return ["red", 500];
   } else {
-    return ["shades", 40];
+    return DEFAULT_COLOR;
   }
 };
+
+
 
 export const EstimateRow = ({
   name,
   hours,
   avatarUrl,
   avatar = true,
+  useColors = true,
   ...rest
 }) => {
-  const badgeVariant = getBadgeColor(hours);
+  const badgeVariant = useColors ? getBadgeColor(hours) : DEFAULT_COLOR;
   const hoursLabel = hours ? `${hours} hours` : "Zilch";
 
   return (
