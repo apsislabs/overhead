@@ -82,7 +82,7 @@ export const calculateHoursByDueDate = (
       if (!card.due) {
         acc.noDeadline += estimate;
       } else {
-        const sprint = getSprintNumber(new Date(c.due));
+        const sprint = getSprintNumber(new Date(card.due));
         acc[sprint] += estimate;
       }
 
