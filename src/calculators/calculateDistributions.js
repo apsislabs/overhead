@@ -64,7 +64,8 @@ export const calculateHoursByDueDate = (
 
   _.each(cards, (c) => {
     if (c.due) {
-      accumulator[c.due] = 0;
+      const date = new Date(c.due).toLocaleDateString();
+      accumulator[date] = 0;
     }
   });
 
@@ -80,7 +81,8 @@ export const calculateHoursByDueDate = (
       if (!card.due) {
         acc.noDeadline += estimate;
       } else {
-        acc[card.due] += estimate;
+        const date = new Date(card.due).toLocaleDateString();
+        acc[date] += estimate;
       }
 
       return acc;
