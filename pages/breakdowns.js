@@ -72,17 +72,11 @@ const BreakdownsPage = () => {
         <EstimateRow avatar={false} name="No Deadline" hours={noDeadline} />
 
         {_.map(sortedDates, (estimate, date) => {
-          if (date === null) {
+          if (date === null || estimate === 0) {
             return;
           }
 
-          return (
-            <EstimateRow
-              avatar={false}
-              name={new Date(date).toLocaleString()}
-              hours={estimate}
-            />
-          );
+          return <EstimateRow avatar={false} name={date} hours={estimate} />;
         })}
       </Section>
 
