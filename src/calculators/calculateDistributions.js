@@ -1,4 +1,5 @@
 import _ from "lodash";
+import { getSprintNumber } from "../utils/dateUtils";
 
 const reduceEstimatesByCard = (cards, estimates, accumulator, cb) => {
   return _.reduce(
@@ -64,8 +65,8 @@ export const calculateHoursByDueDate = (
 
   _.each(cards, (c) => {
     if (c.due) {
-      const date = new Date(c.due).toLocaleDateString();
-      accumulator[date] = 0;
+      const sprint = getSprintNumber(new Date(c.due));
+      accumulator[sprint] = 0;
     }
   });
 
@@ -81,8 +82,8 @@ export const calculateHoursByDueDate = (
       if (!card.due) {
         acc.noDeadline += estimate;
       } else {
-        const date = new Date(card.due).toLocaleDateString();
-        acc[date] += estimate;
+        const sprint = getSprintNumber(new Date(c.due));
+        acc[sprint] += estimate;
       }
 
       return acc;
