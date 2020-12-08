@@ -125,7 +125,7 @@ export const calculateDistributions = (cards, estimates, excludedLists = []) => 
       if (card.members.length < 1) {
         if (!_.has(acc, "unassigned")) {
           _.set(acc, "unassigned", 'hours', 0);
-          _.set(acc, member.id, 'labels', new Set());
+          _.set(acc, "unassigned", 'labels', new Set());
         }
 
         acc.unassigned.hours += estimate;
