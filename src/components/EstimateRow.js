@@ -20,8 +20,8 @@ const tableCell = {
 };
 
 const lastCell = {
-  textAlign: 'right',
-};
+  textAlign: 'right'
+}
 
 const DEFAULT_COLOR = ["shades", 40];
 
@@ -88,7 +88,7 @@ export const EstimateRow = ({
         </Badge>
       </td>
 
-      <td style={[tableCell, lastCell]}>
+      <td style={Object.assign({}, tableCell, lastCell)}>
         <Badge variant={badgeVariant[0]} weight={badgeVariant[1]}>
           {hoursLabel}
         </Badge>
