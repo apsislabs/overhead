@@ -42,7 +42,7 @@ const DistributionPage = () => {
     <Loader />
   ) : (
     <>
-      <table>
+      <table style={{borderWidth: 0}}>
         {_.map(teamTotals, (e, memberId) => {
           const member = _.find(members, (m) => m.id === memberId);
           const name = _.get(member, "fullName", "Unassigned");
