@@ -65,8 +65,8 @@ export const EstimateRow = ({
   const labelsLabel = labels ? `${labels.size} labels` : `All unlabeled`;
 
   return (
-    <tr style={rowStyles} {...rest}>
-      <td>
+    <tr {...rest}>
+     <td>
         <div style={{ display: "flex", alignItems: "center" }}>
           {avatar && (
             <>
