@@ -124,12 +124,13 @@ export const calculateDistributions = (cards, estimates, excludedLists = []) => 
 
       if (card.members.length < 1) {
         if (!_.has(acc, "unassigned")) {
-          _.set(acc, "unassigned", 'hours', 0);
-          _.set(acc, "unassigned", 'labels', new Set());
+          _.set(acc, ["unassigned", "hours"], 0);
+          _.set(acc, ["unassigned", "labels"], new Set());
         }
 
         acc.unassigned.hours += estimate;
         card.labels.forEach(l => acc.unassigned.labels.add(l.name));
+        return acc;
       }
 
       const numMembers = Math.max(1, card.members.length);
@@ -137,8 +138,8 @@ export const calculateDistributions = (cards, estimates, excludedLists = []) => 
 
       _.forEach(card.members, (member) => {
         if (!_.has(acc, member.id)) {
-          _.set(acc, member.id, 'hours', 0);
-          _.set(acc, member.id, 'labels', new Set());
+          _.set(acc, [member.id, "hours"], 0);
+          _.set(acc, [member.id, "labels"], new Set());
         }
 
         acc[member.id].hours += splitEstimate;
