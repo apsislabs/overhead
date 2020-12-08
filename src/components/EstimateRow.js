@@ -1,26 +1,26 @@
 import React from "react";
 import { Badge } from "./Badge";
 
-const rowStyles = {
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  width: "100%",
-  marginBottom: 8,
-};
-
 const avatarStyles = {
   width: 20,
   borderRadius: 20,
   marginRight: 8,
 };
 
-const unknownAvatarStlyes = {
+const unknownAvatarStyles = {
   width: 20,
   height: 20,
   borderRadius: 20,
   marginRight: 8,
   backgroundColor: "#ddd",
+};
+
+const tableCell = {
+  borderWidth: 0,
+};
+
+const lastCell = {
+  textAlign: 'right',
 };
 
 const DEFAULT_COLOR = ["shades", 40];
@@ -66,14 +66,14 @@ export const EstimateRow = ({
 
   return (
     <tr {...rest}>
-     <td>
+     <td style={tableCell}>
         <div style={{ display: "flex", alignItems: "center" }}>
           {avatar && (
             <>
               {avatarUrl ? (
                 <img style={avatarStyles} src={avatarUrl} />
               ) : (
-                <div style={unknownAvatarStlyes} />
+                <div style={unknownAvatarStyles} />
               )}
             </>
           )}
@@ -82,13 +82,13 @@ export const EstimateRow = ({
         </div>
       </td>
 
-      <td>
+      <td style={tableCell}>
         <Badge variant={labelBadgeVariant[0]} weight={labelBadgeVariant[1]}>
           {labelsLabel}
         </Badge>
       </td>
 
-      <td>
+      <td style={[tableCell, lastCell]}>
         <Badge variant={badgeVariant[0]} weight={badgeVariant[1]}>
           {hoursLabel}
         </Badge>
