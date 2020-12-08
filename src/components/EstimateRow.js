@@ -37,18 +37,32 @@ const getBadgeColor = (hours) => {
   }
 };
 
+const getLabelColor = (labels) => {
+  if (labels.size === 0) {
+    return ["orange", 500];
+  } else if (labels.size < 3) {
+    return ["green", 500];
+  } else if (labels.size == 3) {
+    return ["yellow", 500];
+  } else {
+    return ["red", 500];
+  }
+}
 
 
 export const EstimateRow = ({
   name,
   hours,
+  labels, // Set<string>
   avatarUrl,
   avatar = true,
   useColors = true,
   ...rest
 }) => {
   const badgeVariant = useColors ? getBadgeColor(hours) : DEFAULT_COLOR;
+  const labelBadgeVariant = useColors ? getLabelColor(labels) : DEFAULT_COLOR;
   const hoursLabel = hours ? `${hours} hours` : "Zilch";
+  const labelsLabel = labels ? `${labels.size} labels` : `All unlabeled`;
 
   return (
     <div style={rowStyles} {...rest}>
@@ -65,6 +79,10 @@ export const EstimateRow = ({
 
         <span>{name}</span>
       </div>
+
+      <Badge variant={labelBadgeVariant[0]} weight={labelBadgeVariant[1]}>
+        {labelsLabel}
+      </Badge>
 
       <Badge variant={badgeVariant[0]} weight={badgeVariant[1]}>
         {hoursLabel}

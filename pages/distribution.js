@@ -52,7 +52,8 @@ const DistributionPage = () => {
             key={memberId}
             name={name}
             avatarUrl={avatarUrl}
-            hours={e}
+            labels={e.labels}
+            hours={e.hours}
           />
         );
       })}
@@ -61,7 +62,7 @@ const DistributionPage = () => {
 
       {typeof unassigned !== "undefined" && (
         <div>
-          <strong>Unassigned:</strong> {unassigned} Hours
+          <strong>Unassigned:</strong> {unassigned.hours} Hours
         </div>
       )}
 
