@@ -65,28 +65,34 @@ export const EstimateRow = ({
   const labelsLabel = labels ? `${labels.size} labels` : `All unlabeled`;
 
   return (
-    <div style={rowStyles} {...rest}>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        {avatar && (
-          <>
-            {avatarUrl ? (
-              <img style={avatarStyles} src={avatarUrl} />
-            ) : (
-              <div style={unknownAvatarStlyes} />
-            )}
-          </>
-        )}
+    <tr style={rowStyles} {...rest}>
+      <td>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          {avatar && (
+            <>
+              {avatarUrl ? (
+                <img style={avatarStyles} src={avatarUrl} />
+              ) : (
+                <div style={unknownAvatarStlyes} />
+              )}
+            </>
+          )}
 
-        <span>{name}</span>
-      </div>
+          <span>{name}</span>
+        </div>
+      </td>
 
-      <Badge variant={labelBadgeVariant[0]} weight={labelBadgeVariant[1]}>
-        {labelsLabel}
-      </Badge>
+      <td>
+        <Badge variant={labelBadgeVariant[0]} weight={labelBadgeVariant[1]}>
+          {labelsLabel}
+        </Badge>
+      </td>
 
-      <Badge variant={badgeVariant[0]} weight={badgeVariant[1]}>
-        {hoursLabel}
-      </Badge>
-    </div>
+      <td>
+        <Badge variant={badgeVariant[0]} weight={badgeVariant[1]}>
+          {hoursLabel}
+        </Badge>
+      </td>
+    </tr>
   );
 };

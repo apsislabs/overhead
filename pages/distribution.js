@@ -42,21 +42,23 @@ const DistributionPage = () => {
     <Loader />
   ) : (
     <>
-      {_.map(teamTotals, (e, memberId) => {
-        const member = _.find(members, (m) => m.id === memberId);
-        const name = _.get(member, "fullName", "Unassigned");
-        const avatarUrl = _.get(member, "avatar", null);
+      <table>
+        {_.map(teamTotals, (e, memberId) => {
+          const member = _.find(members, (m) => m.id === memberId);
+          const name = _.get(member, "fullName", "Unassigned");
+          const avatarUrl = _.get(member, "avatar", null);
 
-        return (
-          <EstimateRow
-            key={memberId}
-            name={name}
-            avatarUrl={avatarUrl}
-            labels={e.labels}
-            hours={e.hours}
-          />
-        );
-      })}
+          return (
+            <EstimateRow
+              key={memberId}
+              name={name}
+              avatarUrl={avatarUrl}
+              labels={e.labels}
+              hours={e.hours}
+            />
+          );
+        })}
+      </table>
 
       <hr />
 
