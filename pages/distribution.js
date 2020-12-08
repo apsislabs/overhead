@@ -74,7 +74,7 @@ const DistributionPage = () => {
 
       {typeof teamTotals !== "undefined" && (
         <div>
-          <strong>Total:</strong> {_.sum(Object.values(teamTotals))} Hours
+          <strong>Total:</strong> {_.sumBy(teamTotals, x => x.hours)} Hours
         </div>
       )}
 
