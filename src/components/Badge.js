@@ -10,7 +10,7 @@ const badgeStyles = {
 
 export const Badge = ({
   invert = false,
-  variant = "shades",
+  variant = "neutrals",
   weight = 40,
   style,
   ...props
@@ -21,7 +21,7 @@ export const Badge = ({
 
   if (invert) {
     color = colors.getHexString(variant, weight);
-    backgroundColor = colors.getHexString("shades", 300);
+    backgroundColor = colors.getHexString("gray", 40);
   } else {
     color = weight >= 300 ? "white" : "inherit";
     backgroundColor = colors.getHexString(variant, weight);
