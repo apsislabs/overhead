@@ -54,7 +54,7 @@ const LabelIcon = ({ label }) => {
         color,
       }}
     >
-      ⬢
+      ◼
     </span>
   );
 };
@@ -70,6 +70,8 @@ const SprintIcon = ({ sprint }) => {
     COLOR_WEIGHTS[weightIdx]
   );
 
+  console.log(spring, hash, colorIdx, weightIdx, color);
+
   return (
     <span
       style={{
@@ -77,7 +79,7 @@ const SprintIcon = ({ sprint }) => {
         color,
       }}
     >
-      ◼
+      ⬢
     </span>
   );
 };
