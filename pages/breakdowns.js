@@ -108,7 +108,7 @@ const BreakdownsPage = () => {
             return hours ? (
               <EstimateRow
                 avatar
-                AvatarComponent={<div>A</div>}
+                AvatarComponent={() => <span>◼</span>}
                 name={label.name}
                 hours={hours}
                 useColors={false}
