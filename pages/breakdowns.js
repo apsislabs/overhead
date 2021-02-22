@@ -17,17 +17,56 @@ import { Section } from "../src/components/Section";
 
 const sortDescByValue = (c) => _.fromPairs(_.sortBy(_.toPairs(c), 1).reverse());
 
+const hashCode = function (s) {
+  var h = 0,
+    l = s.length,
+    i = 0;
+  if (l > 0) while (i < l) h = ((h << 5) - h + s.charCodeAt(i++)) | 0;
+  return h;
+};
+
+const COLOR_NAMES = ["red", "yellow", "green", "blue", "teal", "purple"];
+
+const COLOR_WEIGHTS = [50, 100, 200, 300, 400, 500];
+
 const LabelIcon = ({ label }) => {
   const colors = window.TrelloPowerUp.util.colors;
   const color = colors.getHexString(label.color);
 
   return (
-    <span style={{
-      marginRight: 8,
-      color
-    }}>◼</span>
+    <span
+      style={{
+        marginRight: 8,
+        color,
+      }}
+    >
+      ◼
+    </span>
   );
-}
+};
+
+const SprintIcon = ({ sprint }) => {
+  const colors = window.TrelloPowerUp.util.colors;
+  const hash = hashCode(sprint.toString());
+  const colorIdx = hash % COLOR_NAMES.length;
+  const weightIdx = hash % COLOR_WEIGHTS.length;
+
+  const color = colors.getHexString(
+    COLOR_NAMES[colorIdx],
+    COLOR_WEIGHTS[weightIdx]
+  );
+
+  return (
+    <span
+      style={{
+        marginRight: 8,
+        color,
+      }}
+    >
+      ◼
+    </span>
+  );
+};
 
 const BreakdownsPage = () => {
   const { trello, resize } = useTrello();
@@ -91,7 +130,8 @@ const BreakdownsPage = () => {
 
             return (
               <EstimateRow
-                avatar={false}
+                avatar
+                AvatarComponent={() => <SprintIcon sprint={date} />}
                 name={date}
                 hours={estimate}
                 useColors={false}
