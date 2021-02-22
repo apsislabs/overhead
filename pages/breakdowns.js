@@ -17,6 +17,18 @@ import { Section } from "../src/components/Section";
 
 const sortDescByValue = (c) => _.fromPairs(_.sortBy(_.toPairs(c), 1).reverse());
 
+const LabelIcon = ({ label }) => {
+  const colors = window.TrelloPowerUp.util.colors;
+  const color = colors.getHexString(label.color);
+
+  return (
+    <span style={{
+      marginRight: 8,
+      color
+    }}>◼</span>
+  );
+}
+
 const BreakdownsPage = () => {
   const { trello, resize } = useTrello();
   const { trelloData, toggleListExclusion } = useTrelloData(trello);
@@ -103,12 +115,10 @@ const BreakdownsPage = () => {
           {_.map(sortedLabelTotals, (hours, labelId) => {
             const label = _.find(labels, (label) => label.id == labelId);
 
-            console.log("LABEL", label);
-
             return hours ? (
               <EstimateRow
                 avatar
-                AvatarComponent={() => <span>◼</span>}
+                AvatarComponent={() => <LabelIcon label={label} />}
                 name={label.name}
                 hours={hours}
                 useColors={false}
