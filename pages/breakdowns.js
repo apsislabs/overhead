@@ -41,7 +41,7 @@ const COLOR_NAMES = [
   "shades",
 ];
 
-const COLOR_WEIGHTS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
+const COLOR_WEIGHTS = [50, 100, 200, 300, 400, 500];
 
 const LabelIcon = ({ label }) => {
   const colors = window.TrelloPowerUp.util.colors;
@@ -69,8 +69,6 @@ const SprintIcon = ({ sprint }) => {
     COLOR_NAMES[colorIdx],
     COLOR_WEIGHTS[weightIdx]
   );
-
-  console.log(sprint, hash, colorIdx, weightIdx, color);
 
   return (
     <span
