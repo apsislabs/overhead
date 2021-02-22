@@ -7,6 +7,7 @@ import {
   countUnestimatedCards,
 } from "../src/calculators/calculateDistributions";
 import { EstimateRow } from "../src/components/EstimateRow";
+import { EstimateTable } from "../src/components/EstimateTable";
 import { ListToggler } from "../src/components/ListToggler";
 import { Loader } from "../src/components/Loader";
 import { useTrello } from "../src/contexts/TrelloContext";
@@ -42,7 +43,7 @@ const DistributionPage = () => {
     <Loader />
   ) : (
     <>
-      <table style={{borderWidth: 0}}>
+      <EstimateTable>
         {_.map(teamTotals, (e, memberId) => {
           const member = _.find(members, (m) => m.id === memberId);
           const name = _.get(member, "fullName", "Unassigned");
@@ -59,7 +60,7 @@ const DistributionPage = () => {
             />
           );
         })}
-      </table>
+      </EstimateTable>
 
       <hr />
 
@@ -77,7 +78,12 @@ const DistributionPage = () => {
 
       {typeof teamTotals !== "undefined" && (
         <div>
-          <strong>Total:</strong> {_.chain(teamTotals).map(x => x.hours).sum().value()} Hours
+          <strong>Total:</strong>{" "}
+          {_.chain(teamTotals)
+            .map((x) => x.hours)
+            .sum()
+            .value()}{" "}
+          Hours
         </div>
       )}
 

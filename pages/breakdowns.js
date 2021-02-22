@@ -12,13 +12,8 @@ import { Loader } from "../src/components/Loader";
 import { useTrello } from "../src/contexts/TrelloContext";
 import { useTrelloData } from "../src/hooks/useTrelloData";
 import { withTrello } from "../src/withTrello";
-
-const Section = ({ title, children, ...rest }) => (
-  <div className="pop-over-section">
-    {title && <h4>{title}</h4>}
-    {children}
-  </div>
-);
+import { EstimateTable } from "../src/components/EstimateTable";
+import { Section } from "../src/components/Section";
 
 const sortDescByValue = (c) => _.fromPairs(_.sortBy(_.toPairs(c), 1).reverse());
 
@@ -69,51 +64,55 @@ const BreakdownsPage = () => {
   ) : (
     <>
       <Section title="Points by Due Date">
-        <EstimateRow
-          avatar={false}
-          name="No Deadline"
-          hours={noDeadline}
-          useColors={false}
-        />
+        <EstimateTable>
+          <EstimateRow
+            avatar={false}
+            name="No Deadline"
+            hours={noDeadline}
+            useColors={false}
+          />
 
-        {_.map(sortedDates, (estimate, date) => {
-          if (date === null || estimate === 0) {
-            return;
-          }
+          {_.map(sortedDates, (estimate, date) => {
+            if (date === null || estimate === 0) {
+              return;
+            }
 
-          return (
-            <EstimateRow
-              avatar={false}
-              name={date}
-              hours={estimate}
-              useColors={false}
-            />
-          );
-        })}
+            return (
+              <EstimateRow
+                avatar={false}
+                name={date}
+                hours={estimate}
+                useColors={false}
+              />
+            );
+          })}
+        </EstimateTable>
       </Section>
 
       <hr />
 
       <Section title="Points by Label">
-        <EstimateRow
-          avatar={false}
-          name="No Label"
-          hours={noLabel}
-          useColors={false}
-        />
+        <EstimateTable>
+          <EstimateRow
+            avatar={false}
+            name="No Label"
+            hours={noLabel}
+            useColors={false}
+          />
 
-        {_.map(sortedLabelTotals, (hours, labelId) => {
-          const label = _.find(labels, (label) => label.id == labelId);
+          {_.map(sortedLabelTotals, (hours, labelId) => {
+            const label = _.find(labels, (label) => label.id == labelId);
 
-          return hours ? (
-            <EstimateRow
-              avatar={false}
-              name={label.name}
-              hours={hours}
-              useColors={false}
-            />
-          ) : null;
-        })}
+            return hours ? (
+              <EstimateRow
+                avatar={false}
+                name={label.name}
+                hours={hours}
+                useColors={false}
+              />
+            ) : null;
+          })}
+        </EstimateTable>
       </Section>
 
       <hr />
