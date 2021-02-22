@@ -20,8 +20,8 @@ export const Badge = ({
   let backgroundColor = null;
 
   if (invert) {
-    color = colors.getHexString(variant, weight);
-    backgroundColor = colors.getHexString("neutrals", 40);
+    color = colors.getHexString(variant, 400);
+    backgroundColor = 'white';
   } else {
     color = weight >= 300 ? "white" : "inherit";
     backgroundColor = colors.getHexString(variant, weight);
