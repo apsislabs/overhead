@@ -11,5 +11,5 @@ export const convertNumToTime = (number) => {
     minute = "0" + minute;
   }
 
-  return `${hour}H${minute}M`;
+  return `${hour}:${minute}`;
 };
