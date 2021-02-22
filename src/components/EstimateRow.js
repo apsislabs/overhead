@@ -1,4 +1,5 @@
 import React from "react";
+import { convertNumToTime } from "../utils/timeUtils";
 import { Badge } from "./Badge";
 
 const avatarStyles = {
@@ -61,7 +62,7 @@ export const EstimateRow = ({
 }) => {
   const badgeVariant = useColors ? getBadgeColor(hours) : DEFAULT_COLOR;
   const labelBadgeVariant = useColors ? getLabelColor(labels) : DEFAULT_COLOR;
-  const hoursLabel = hours ? `${hours}H` : "Zilch";
+  const hoursLabel = hours ? convertNumToTime(hours) : "0H";
   const labelsLabel = labels ? `${labels.size}L` : `0L`;
 
   return (
