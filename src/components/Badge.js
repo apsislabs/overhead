@@ -13,6 +13,7 @@ export const Badge = ({
   variant = "neutrals",
   weight = 40,
   style,
+  mono = false,
   ...props
 }) => {
   const colors = window.TrelloPowerUp.util.colors;
@@ -21,11 +22,15 @@ export const Badge = ({
 
   if (invert) {
     color = colors.getHexString(variant, 400);
-    backgroundColor = 'white';
+    backgroundColor = "white";
   } else {
     color = weight >= 300 ? "white" : "inherit";
     backgroundColor = colors.getHexString(variant, weight);
   }
+
+  const fontFamily = mono
+    ? "SF Mono,Segoe UI Mono,Roboto Mono,Ubuntu Mono,Menlo,Courier,monospace"
+    : "inherit";
 
   return (
     <span
@@ -33,7 +38,7 @@ export const Badge = ({
         ...badgeStyles,
         backgroundColor,
         color,
-        fontFamily: 'monospace',
+        fontFamily,
         ...style,
       }}
       {...props}
