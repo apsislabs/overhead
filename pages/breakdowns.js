@@ -25,9 +25,23 @@ const hashCode = function (s) {
   return h;
 };
 
-const COLOR_NAMES = ["red", "yellow", "green", "blue", "teal", "purple"];
+const COLOR_NAMES = [
+  "blue",
+  "green",
+  "orange",
+  "red",
+  "yellow",
+  "purple",
+  "pink",
+  "sky",
+  "lime",
+  "gray",
+  "black",
+  "business-blue",
+  "shades",
+];
 
-const COLOR_WEIGHTS = [50, 100, 200, 300, 400, 500];
+const COLOR_WEIGHTS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
 
 const LabelIcon = ({ label }) => {
   const colors = window.TrelloPowerUp.util.colors;
