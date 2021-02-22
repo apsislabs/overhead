@@ -39,10 +39,7 @@ const COLOR_NAMES = [
 
 const COLOR_WEIGHTS = [50, 100, 200, 300, 400, 500];
 
-const LabelIcon = ({ label }) => {
-  const colors = window.TrelloPowerUp.util.colors;
-  const color = colors.getHexString(label.color);
-
+const SquareIcon = ({ color }) => {
   return (
     <span
       style={{
@@ -53,6 +50,13 @@ const LabelIcon = ({ label }) => {
       ◼
     </span>
   );
+};
+
+const LabelIcon = ({ label }) => {
+  const colors = window.TrelloPowerUp.util.colors;
+  const color = colors.getHexString(label.color);
+
+  return <SquareIcon color={color} />;
 };
 
 const SprintIcon = ({ sprint }) => {
@@ -66,16 +70,7 @@ const SprintIcon = ({ sprint }) => {
     COLOR_WEIGHTS[weightIdx]
   );
 
-  return (
-    <span
-      style={{
-        marginRight: 8,
-        color,
-      }}
-    >
-      ⬢
-    </span>
-  );
+  return <SquareIcon color={color} />;
 };
 
 const BreakdownsPage = () => {
