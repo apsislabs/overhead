@@ -35,10 +35,6 @@ const COLOR_NAMES = [
   "pink",
   "sky",
   "lime",
-  "gray",
-  "black",
-  "business-blue",
-  "shades",
 ];
 
 const COLOR_WEIGHTS = [50, 100, 200, 300, 400, 500];
