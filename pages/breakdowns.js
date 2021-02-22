@@ -70,7 +70,7 @@ const SprintIcon = ({ sprint }) => {
     COLOR_WEIGHTS[weightIdx]
   );
 
-  console.log(spring, hash, colorIdx, weightIdx, color);
+  console.log(sprint, hash, colorIdx, weightIdx, color);
 
   return (
     <span
