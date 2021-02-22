@@ -33,6 +33,7 @@ export const Badge = ({
         ...badgeStyles,
         backgroundColor,
         color,
+        fontFamily: 'monospace',
         ...style,
       }}
       {...props}
