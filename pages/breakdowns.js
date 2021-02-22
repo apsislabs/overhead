@@ -40,7 +40,7 @@ const LabelIcon = ({ label }) => {
         color,
       }}
     >
-      ◼
+      ⬢
     </span>
   );
 };
