@@ -40,13 +40,13 @@ const getBadgeColor = (hours) => {
 
 const getLabelColor = (labels) => {
   if (labels.size === 0) {
-    return ["orange", 500];
+    return ["orange", 50];
   } else if (labels.size < 3) {
-    return ["green", 500];
+    return ["green", 50];
   } else if (labels.size == 3) {
-    return ["yellow", 500];
+    return ["yellow", 50];
   } else {
-    return ["red", 500];
+    return ["red", 50];
   }
 };
 
@@ -58,6 +58,7 @@ export const EstimateRow = ({
   avatar = true,
   useColors = true,
   showLabels = false,
+  AvatarComponent,
   ...rest
 }) => {
   const badgeVariant = useColors ? getBadgeColor(hours) : DEFAULT_COLOR;
@@ -74,7 +75,13 @@ export const EstimateRow = ({
               {avatarUrl ? (
                 <img style={avatarStyles} src={avatarUrl} />
               ) : (
-                <div style={unknownAvatarStyles} />
+                <>
+                  {AvatarComponent ? (
+                    <AvatarComponent />
+                  ) : (
+                    <div style={unknownAvatarStyles} />
+                  )}
+                </>
               )}
             </>
           )}
@@ -86,7 +93,6 @@ export const EstimateRow = ({
       {showLabels && (
         <td style={tableCell}>
           <Badge
-            invert
             variant={labelBadgeVariant[0]}
             weight={labelBadgeVariant[1]}
           >
