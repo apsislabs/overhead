@@ -54,6 +54,7 @@ const DistributionPage = () => {
               name={name}
               avatarUrl={avatarUrl}
               labels={e.labels}
+              showLabels={true}
               hours={e.hours}
             />
           );

@@ -20,8 +20,8 @@ const tableCell = {
 };
 
 const lastCell = {
-  textAlign: 'right'
-}
+  textAlign: "right",
+};
 
 const DEFAULT_COLOR = ["shades", 40];
 
@@ -47,8 +47,7 @@ const getLabelColor = (labels) => {
   } else {
     return ["red", 500];
   }
-}
-
+};
 
 export const EstimateRow = ({
   name,
@@ -57,16 +56,17 @@ export const EstimateRow = ({
   avatarUrl,
   avatar = true,
   useColors = true,
+  showLabels = false,
   ...rest
 }) => {
   const badgeVariant = useColors ? getBadgeColor(hours) : DEFAULT_COLOR;
   const labelBadgeVariant = useColors ? getLabelColor(labels) : DEFAULT_COLOR;
-  const hoursLabel = hours ? `${hours} hours` : "Zilch";
-  const labelsLabel = labels ? `${labels.size} labels` : `All unlabeled`;
+  const hoursLabel = hours ? `${hours}H` : "Zilch";
+  const labelsLabel = labels ? `${labels.size}L` : `0L`;
 
   return (
     <tr {...rest}>
-     <td style={tableCell}>
+      <td style={tableCell}>
         <div style={{ display: "flex", alignItems: "center" }}>
           {avatar && (
             <>
@@ -82,11 +82,17 @@ export const EstimateRow = ({
         </div>
       </td>
 
-      <td style={tableCell}>
-        <Badge variant={labelBadgeVariant[0]} weight={labelBadgeVariant[1]}>
-          {labelsLabel}
-        </Badge>
-      </td>
+      {showLabels && (
+        <td style={tableCell}>
+          <Badge
+            variant={labelBadgeVariant[0]}
+            weight={labelBadgeVariant[1]}
+            style={{ opacity: 0.5 }}
+          >
+            {labelsLabel}
+          </Badge>
+        </td>
+      )}
 
       <td style={Object.assign({}, tableCell, lastCell)}>
         <Badge variant={badgeVariant[0]} weight={badgeVariant[1]}>
