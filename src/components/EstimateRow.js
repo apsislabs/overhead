@@ -89,7 +89,6 @@ export const EstimateRow = ({
             invert
             variant={labelBadgeVariant[0]}
             weight={labelBadgeVariant[1]}
-            style={{ opacity: 0.5 }}
           >
             {labelsLabel}
           </Badge>
