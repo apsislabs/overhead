@@ -17,7 +17,7 @@ import { postData, SHAMEBOT_URL } from "../src/utils/postData";
 import { withTrello } from "../src/withTrello";
 
 const DistributionPage = () => {
-  const [loading, setLoading] = useState(false);
+  const [posting, setPosting] = useState(false);
   const { trello, resize } = useTrello();
   const { trelloData, toggleListExclusion } = useTrelloData(trello);
 
@@ -43,14 +43,14 @@ const DistributionPage = () => {
   useEffect(resize, [JSON.stringify(estimateTotals), loading]);
 
   const handlePost = async () => {
-    setLoading(true);
+    setPosting(true);
     try {
       await postData(SHAMEBOT_URL, { type: "estimates", data: teamTotals });
     } catch (err) {
       alert(err.message);
       console.error(err);
     } finally {
-      setLoading(false);
+      setPosting(false);
     }
   };
 
@@ -102,7 +102,7 @@ const DistributionPage = () => {
         </div>
       )}
 
-      <Button onClick={handlePost} loading={loading} loadingLabel="Slacking...">
+      <Button onClick={handlePost} loading={posting} loadingLabel="Slacking...">
         Slack it!
       </Button>
 
