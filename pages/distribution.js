@@ -1,7 +1,7 @@
 /* global TrelloPowerUp */
 
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   calculateDistributions,
   countUnestimatedCards,
@@ -42,10 +42,25 @@ const DistributionPage = () => {
   // This page resizes when estimate totals changes
   useEffect(resize, [JSON.stringify(estimateTotals), loading]);
 
+  const memberTotals = useMemo(() => {
+    return _.map(estimateTotals, (e, memberId) => {
+      const member = _.find(members, (m) => m.id === memberId);
+      const name = _.get(member, "fullName", "Unassigned");
+      const avatarUrl = _.get(member, "avatar", null);
+      const labels = e.labels;
+      const hours = e.hours;
+
+      return { memberId, name, avatarUrl, labels, hours };
+    });
+  }, [estimateTotals]);
+
   const handlePost = async () => {
     setPosting(true);
     try {
-      await postData(SHAMEBOT_URL, { type: "estimates", data: teamTotals });
+      await postData(SHAMEBOT_URL, {
+        type: "estimates",
+        data: { memberTotals, unestimated },
+      });
     } catch (err) {
       alert(err.message);
       console.error(err);
@@ -59,19 +74,15 @@ const DistributionPage = () => {
   ) : (
     <>
       <EstimateTable>
-        {_.map(teamTotals, (e, memberId) => {
-          const member = _.find(members, (m) => m.id === memberId);
-          const name = _.get(member, "fullName", "Unassigned");
-          const avatarUrl = _.get(member, "avatar", null);
-
+        {_.map(memberTotals, (row) => {
           return (
             <EstimateRow
-              key={memberId}
-              name={name}
-              avatarUrl={avatarUrl}
-              labels={e.labels}
+              key={row.memberId}
+              name={row.name}
+              avatarUrl={row.avatarUrl}
+              labels={row.labels}
+              hours={row.hours}
               showLabels={true}
-              hours={e.hours}
             />
           );
         })}
