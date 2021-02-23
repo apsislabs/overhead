@@ -8,11 +8,13 @@ export const Button = ({
   style,
   ...props
 }) => {
-  <button
-    style={{ width: "100%", ...style }}
-    {...props}
-    disabled={loading || disabled}
-  >
-    {loading ? loadingLabel : children}
-  </button>;
+  return (
+    <button
+      style={{ width: "100%", ...style }}
+      {...props}
+      disabled={loading || disabled}
+    >
+      {loading ? loadingLabel : children}
+    </button>
+  );
 };
