@@ -2,6 +2,7 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { Collapse } from "react-collapse";
 import { useTrello } from "../contexts/TrelloContext";
+import { Button } from "./Button";
 
 export const CollapseButton = ({ label, children, onOpen, onClose }) => {
   const { resize } = useTrello();
@@ -29,12 +30,9 @@ export const CollapseButton = ({ label, children, onOpen, onClose }) => {
 
   return (
     <>
-      <button
-        style={{ width: "100%", marginBottom: open ? 8 : 0 }}
-        onClick={handleToggleOpen}
-      >
+      <Button style={{ marginBottom: open ? 8 : 0 }} onClick={handleToggleOpen}>
         {label}
-      </button>
+      </Button>
 
       <Collapse isOpened={open}>
         <div className="pop-over-section">{children}</div>
