@@ -118,13 +118,20 @@ const BreakdownsPage = () => {
   const sortedLabelTotals = sortDescByValue(labelTotals);
   const sortedDates = sortDescByValue(dates);
 
+  const formattedLabels = useMemo(() => {
+    return _.map(sortedLabelTotals, (hours, labelId) => {
+      const label = _.find(labels, (label) => label.id == labelId);
+      return { label, labelId, hours };
+    });
+  }, [sortedLabelTotals, labels]);
+
   const handlePost = async () => {
     setPosting(true);
 
     try {
       await postData(SHAMEBOT_URL, {
         type: "breakdowns",
-        data: { sprints: sortedDates, clients: sortedLabelTotals },
+        data: { sprints: sortedDates, clients: formattedLabels },
       });
     } catch (err) {
       alert(err.message);
@@ -178,15 +185,14 @@ const BreakdownsPage = () => {
             useColors={false}
           />
 
-          {_.map(sortedLabelTotals, (hours, labelId) => {
-            const label = _.find(labels, (label) => label.id == labelId);
-
-            return hours ? (
+          {_.map(formattedLabels, (row) => {
+            return row.hours ? (
               <EstimateRow
                 avatar
-                AvatarComponent={() => <LabelIcon label={label} />}
-                name={label.name}
-                hours={hours}
+                key={row.labelId}
+                AvatarComponent={() => <LabelIcon label={row.label} />}
+                name={row.label.name}
+                hours={row.hours}
                 useColors={false}
               />
             ) : null;
