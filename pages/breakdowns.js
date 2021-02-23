@@ -118,9 +118,7 @@ const BreakdownsPage = () => {
         </EstimateTable>
       </Section>
 
-      <Button onClick={handlePost} loading={posting} loadingLabel="Slacking...">
-        Slack it!
-      </Button>
+      <hr />
 
       <Section title="Points by Label">
         <EstimateTable>
@@ -146,7 +144,9 @@ const BreakdownsPage = () => {
         </EstimateTable>
       </Section>
 
-      <hr />
+      <Button onClick={handlePost} loading={posting} loadingLabel="Slacking...">
+        Slack it!
+      </Button>
 
       <ListToggler
         lists={lists}
