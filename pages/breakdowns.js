@@ -16,8 +16,8 @@ import { useTrello } from "../src/contexts/TrelloContext";
 import { useTrelloData } from "../src/hooks/useTrelloData";
 import { postData, SHAMEBOT_URL } from "../src/utils/postData";
 import { withTrello } from "../src/withTrello";
-import { LabelIcon } from "./LabelIcon";
-import { SprintIcon } from "./SprintIcon";
+import { LabelIcon } from "../src/components/LabelIcon";
+import { SprintIcon } from "../src/components/SprintIcon";
 
 const sortDescByValue = (c) => _.fromPairs(_.sortBy(_.toPairs(c), 1).reverse());
 
