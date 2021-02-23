@@ -1,7 +1,7 @@
 /* global TrelloPowerUp */
 
 import _ from "lodash";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   calculateHoursByDueDate,
   calculateHoursByLabel,
@@ -14,6 +14,8 @@ import { useTrelloData } from "../src/hooks/useTrelloData";
 import { withTrello } from "../src/withTrello";
 import { EstimateTable } from "../src/components/EstimateTable";
 import { Section } from "../src/components/Section";
+import { postData, SHAMEBOT_URL } from "../src/utils/postData";
+import { Button } from "../src/components/Button";
 
 const sortDescByValue = (c) => _.fromPairs(_.sortBy(_.toPairs(c), 1).reverse());
 
@@ -74,6 +76,7 @@ const SprintIcon = ({ sprint }) => {
 };
 
 const BreakdownsPage = () => {
+  const [posting, setPosting] = useState(false);
   const { trello, resize } = useTrello();
   const { trelloData, toggleListExclusion } = useTrelloData(trello);
 
@@ -115,6 +118,22 @@ const BreakdownsPage = () => {
   const sortedLabelTotals = sortDescByValue(labelTotals);
   const sortedDates = sortDescByValue(dates);
 
+  const handlePost = async () => {
+    setPosting(true);
+
+    try {
+      await postData(SHAMEBOT_URL, {
+        type: "breakdowns",
+        data: { sprints: sortedDates, clients: sortedLabelTotals },
+      });
+    } catch (err) {
+      alert(err.message);
+      console.error(err);
+    } finally {
+      setPosting(false);
+    }
+  };
+
   return loading ? (
     <Loader />
   ) : (
@@ -146,7 +165,9 @@ const BreakdownsPage = () => {
         </EstimateTable>
       </Section>
 
-      <hr />
+      <Button onClick={handlePost} loading={posting} loadingLabel="Slacking...">
+        Slack it!
+      </Button>
 
       <Section title="Points by Label">
         <EstimateTable>

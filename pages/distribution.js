@@ -65,7 +65,7 @@ const DistributionPage = () => {
     setPosting(true);
     try {
       await postData(SHAMEBOT_URL, {
-        type: "estimates",
+        type: "distribution",
         data: { memberTotals, unassigned, unestimated, overalTotal },
       });
     } catch (err) {
