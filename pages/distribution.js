@@ -54,12 +54,19 @@ const DistributionPage = () => {
     });
   }, [estimateTotals]);
 
+  const overalTotal = useMemo(() => {
+    return _.chain(teamTotals)
+      .map((x) => x.hours)
+      .sum()
+      .value();
+  }, [teamTotals]);
+
   const handlePost = async () => {
     setPosting(true);
     try {
       await postData(SHAMEBOT_URL, {
         type: "estimates",
-        data: { memberTotals, unestimated },
+        data: { memberTotals, unassigned, unestimated, overalTotal },
       });
     } catch (err) {
       alert(err.message);
@@ -102,14 +109,9 @@ const DistributionPage = () => {
         </div>
       )}
 
-      {typeof teamTotals !== "undefined" && (
+      {typeof overalTotal !== "undefined" && (
         <div>
-          <strong>Total:</strong>{" "}
-          {_.chain(teamTotals)
-            .map((x) => x.hours)
-            .sum()
-            .value()}{" "}
-          Hours
+          <strong>Total:</strong> {overalTotal} Hours
         </div>
       )}
 
