@@ -6,74 +6,20 @@ import {
   calculateHoursByDueDate,
   calculateHoursByLabel,
 } from "../src/calculators/calculateDistributions";
+import { Button } from "../src/components/Button";
 import { EstimateRow } from "../src/components/EstimateRow";
+import { EstimateTable } from "../src/components/EstimateTable";
 import { ListToggler } from "../src/components/ListToggler";
 import { Loader } from "../src/components/Loader";
+import { Section } from "../src/components/Section";
 import { useTrello } from "../src/contexts/TrelloContext";
 import { useTrelloData } from "../src/hooks/useTrelloData";
-import { withTrello } from "../src/withTrello";
-import { EstimateTable } from "../src/components/EstimateTable";
-import { Section } from "../src/components/Section";
 import { postData, SHAMEBOT_URL } from "../src/utils/postData";
-import { Button } from "../src/components/Button";
+import { withTrello } from "../src/withTrello";
+import { LabelIcon } from "./LabelIcon";
+import { SprintIcon } from "./SprintIcon";
 
 const sortDescByValue = (c) => _.fromPairs(_.sortBy(_.toPairs(c), 1).reverse());
-
-const hashCode = function (s) {
-  var h = 0,
-    l = s.length,
-    i = 0;
-  if (l > 0) while (i < l) h = ((h << 5) - h + s.charCodeAt(i++)) | 0;
-  return h;
-};
-
-const COLOR_NAMES = [
-  "blue",
-  "green",
-  "orange",
-  "red",
-  "yellow",
-  "purple",
-  "pink",
-  "sky",
-  "lime",
-];
-
-const COLOR_WEIGHTS = [50, 100, 200, 300, 400, 500];
-
-const SquareIcon = ({ color }) => {
-  return (
-    <span
-      style={{
-        marginRight: 8,
-        color,
-      }}
-    >
-      ◼
-    </span>
-  );
-};
-
-const LabelIcon = ({ label }) => {
-  const colors = window.TrelloPowerUp.util.colors;
-  const color = colors.getHexString(label.color);
-
-  return <SquareIcon color={color} />;
-};
-
-const SprintIcon = ({ sprint }) => {
-  const colors = window.TrelloPowerUp.util.colors;
-  const hash = hashCode(sprint.toString());
-  const colorIdx = hash % COLOR_NAMES.length;
-  const weightIdx = hash % COLOR_WEIGHTS.length;
-
-  const color = colors.getHexString(
-    COLOR_NAMES[colorIdx],
-    COLOR_WEIGHTS[weightIdx]
-  );
-
-  return <SquareIcon color={color} />;
-};
 
 const BreakdownsPage = () => {
   const [posting, setPosting] = useState(false);
