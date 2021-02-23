@@ -1,4 +1,4 @@
-export const SHAMEBOT_URL = "http://localhost:3000/prod/shame";
+export const SHAMEBOT_URL = "http://localhost:3000/prod/sprint";
 // export const SHAMEBOT_URL =
 //   "https://kumh2i8hk7.execute-api.us-west-2.amazonaws.com/prod/sprint";
 
