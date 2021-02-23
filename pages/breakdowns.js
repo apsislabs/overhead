@@ -80,7 +80,6 @@ const BreakdownsPage = () => {
         data: { sprints: sortedDates, clients: formattedLabels },
       });
     } catch (err) {
-      alert(err.message);
       console.error(err);
     } finally {
       setPosting(false);

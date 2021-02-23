@@ -69,7 +69,6 @@ const DistributionPage = () => {
         data: { memberTotals, unassigned, unestimated, overalTotal },
       });
     } catch (err) {
-      alert(err.message);
       console.error(err);
     } finally {
       setPosting(false);
