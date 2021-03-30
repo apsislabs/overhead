@@ -30,7 +30,7 @@ export const SprintIcon = ({ sprint }) => {
   const weightIdx = hash % COLOR_WEIGHTS.length;
 
   const color = colors.getHexString(
-    COLOR_NAMES[colorIdx],
+    COLOR_NAMES[colorIdx] || "shades",
     COLOR_WEIGHTS[weightIdx]
   );
 

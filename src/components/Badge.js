@@ -10,7 +10,7 @@ const badgeStyles = {
 
 export const Badge = ({
   invert = false,
-  variant = "neutrals",
+  variant = "shades",
   weight = 40,
   style,
   mono = false,
