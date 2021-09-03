@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "final-form": "^4.20.1",
-    "immer": "^8.0.1",
+    "immer": "^9.0.6",
     "lodash": "^4.17.21",
     "next": "^10.0.7",
     "node-fetch": "^2.6.1",
